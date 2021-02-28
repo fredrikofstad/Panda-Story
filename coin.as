@@ -4,14 +4,14 @@
 	import flash.events.Event;
 
 	import flash.media.Sound;
-	public class coin extends MovieClip {
+	public class Coin extends MovieClip {
 		var player: MovieClip;
 		var mainTimeLine = MovieClip(root);
 		var coinValue: int = 1;
 		var coinstaken: Array;
 
 		var coinsound: Sound = new mySound();
-		public function coin() { 
+		public function Coin() { 
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 
 			if (this.name == "key") {

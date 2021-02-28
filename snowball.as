@@ -3,7 +3,7 @@
 	import flash.events.Event;
 	import flash.events.*;
 
-	public class snowball extends MovieClip {
+	public class Snowball extends MovieClip {
 		var player: MovieClip;
 		var mainTimeLine = MovieClip(root);
 		var speed: Number = 1;
@@ -14,7 +14,7 @@
 
 
 
-		public function snowball() {
+		public function Snowball() {
 			// constructor code
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 			originalX = this.x;

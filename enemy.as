@@ -3,7 +3,7 @@
 	import flash.events.Event;
 	import flash.events.*;
 	
-	public class enemy extends MovieClip {
+	public class Enemy extends MovieClip {
 		var player: MovieClip;
 		var mainTimeLine = MovieClip(root);
 		var damage: Number = 1;
@@ -16,7 +16,7 @@
 		var hurt: hurtsound = new hurtsound();
 		var die: enemydiesound = new enemydiesound();
 
-		public function enemy() {
+		public function Enemy() {
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 			r_distance = distance * 2;
 			if (this.name.indexOf("man") >= 0) {

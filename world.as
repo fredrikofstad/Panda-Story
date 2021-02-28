@@ -10,7 +10,7 @@
 	import flash.ui.MultitouchInputMode;
 
 
-	public class world extends MovieClip {
+	public class World extends MovieClip {
 		var rotationspeed: Number = 2;
 		var leftPressed, rightPressed, transfer: Boolean = false;
 		var mainTimeLine = MovieClip(root);
@@ -18,7 +18,7 @@
 
 
 
-		public function world() {
+		public function World() {
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 
 		}
