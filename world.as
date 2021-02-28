@@ -1,14 +1,6 @@
 ﻿package {
-
-
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.*;
-
-	import flash.events.TouchEvent;
-	import flash.ui.Multitouch;
-	import flash.ui.MultitouchInputMode;
-
 
 	public class World extends MovieClip {
 		var rotationspeed: Number = 2;
@@ -16,11 +8,8 @@
 		var mainTimeLine = MovieClip(root);
 		var levelselect: Number = 1;
 
-
-
 		public function World() {
 			this.addEventListener(Event.ENTER_FRAME, upDate);
-
 		}
 		function gotoLevel(level: Number, other: String = null) {
 			if (Main.transfer) {
@@ -30,9 +19,6 @@
 			}
 
 		}
-
-
-
 		function upDate(e: Event): void {
 
 			if (mainTimeLine.worldmap) {
@@ -42,9 +28,6 @@
 				} else {
 					map.snowcomplete.visible = false;
 				}
-
-
-
 				if (map.world1hb.hitTestObject(panda)) {
 					worldtext.text = "The Bar";
 					levelselect = 1;
@@ -86,12 +69,7 @@
 					map.rotation -= rotationspeed;
 					panda.scaleX = -1;
 				}
-
-				//hitbox
 			}
-
 		}
-
 	}
-
 }

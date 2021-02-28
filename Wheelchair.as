@@ -1,6 +1,5 @@
 ﻿package {
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.*;
 
 	public class Wheelchair extends MovieClip {
@@ -17,7 +16,6 @@
 
 
 		public function Wheelchair() {
-			// constructor code
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 		}
 

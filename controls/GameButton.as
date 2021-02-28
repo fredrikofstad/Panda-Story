@@ -1,4 +1,4 @@
-﻿package controls {
+﻿package {
 	import flash.events.Event;
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;

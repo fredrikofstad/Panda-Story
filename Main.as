@@ -1,29 +1,14 @@
 ﻿package {
-
-
-	import flash.display.Stage;
-	import flash.display.StageDisplayState;
-	import flash.display.MovieClip;
-	import flash.events.Event;
-	import flash.events.KeyboardEvent;
-	import flash.ui.Keyboard;
-	import flash.events.MouseEvent;
+	import flash.display.*;
+	import flash.events.*;
+	import flash.ui.*;
 	import flash.text.TextField;
 	import flash.system.fscommand;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
-
 	import flash.desktop.NativeApplication;
 	import flash.desktop.SystemIdleMode;
-
 	import flash.net.SharedObject;
-
-	import flash.events.TouchEvent;
-	import flash.ui.Multitouch;
-	import flash.ui.MultitouchInputMode;
-	import flash.text.CSMSettings;
-	import flash.ui.Mouse;
-
 	import flash.geom.Point;
 
 	import com.greensock.*;
@@ -31,77 +16,82 @@
 
 
 	public class Main extends MovieClip {
-
-
-
-		/*var joystick: Joystick;
+		
+		private static var _instance: Main = null; //my Main instance reference
+		//joystick for android
+		var joystick: Joystick;
 		var spaceButton: GameButton;
-		var upButton: GameButton;*/
-
-		private static var _instance: Main = null;
-		public static var sledscore: Number = 0;
+		var upButton: GameButton;
+		static public var movejoy: Boolean = false; //for moving joy
 
 		//	importing movieclips:
 
-		var player: player_mc = new player_mc;
-		var collisions: collisions_mc = new collisions_mc;
-		var ui: ui_mc = new ui_mc;
-		var cs: cutscene = new cutscene;
-		var snow: Snow = new Snow;
-		var t: Touch = new Touch;
-		var border: Border = new Border;
-		var inTrain: Boolean = false;
-
-		//zoo
+		var player: player_mc = new player_mc; //panda
+		var collisions: collisions_mc = new collisions_mc; //stage collisions
+		var ui: ui_mc = new ui_mc; //my ui elements
+		var cs: cutscene = new cutscene; //my cutscene handler
+		var snow: Snow = new Snow; //falling snow
+		var t: Touch = new Touch; //for the sledding game???
+		var border: Border = new Border; //border cause I'm too stupid to figure out how to scale properly
+		
+		//event booleans
+		var worldmap, sledding, skiing, menubaropen, startscreen, inTrain: Boolean = false;
+		//zoo variables
 		var sadCounter: int = 0;
 		var sadMode: Boolean = false;
 		//snowing
 		var snowing = false;
+		
+		public static var sledscore: Number = 0;
 		//itembox
 		var itembox1: String = "empty"
 		var itembox2: String = "empty"
 		var itembox3: String = "empty"
 		var itembox4: String = "empty"
-
 		//items
 		var talkitem: Boolean = false;
 		var talkcontent: String;
+		var gotitem: String;
+		//item holding
+		var hasBamboo, hasMeat, hasKey, hasGelato: Boolean = false;
+		var hasSkis: Boolean = false;
+		var holding: Boolean = false;
+		var holdingitem: String = "gelato";
+		//Talking
 		var male: Boolean = true;
+		var Aposition: int;
+		var textPosition: int;
+		var speech: String;
+		var speechName: String;
+		var textSpeed: int = 1;
+		var script: Array = new Array;
+		//yesno
+		public static var question: Boolean = false;
+		public var yesnoCase: int = 0;
+		var ask, end, questionDone, select: Boolean = false;
+		var endquestion: String;
+		var qyes: Boolean = true;
+		
+		//specific talk events
+		var murray: int = 0; //murray
 
-
-		//settings
+		//setup
+		var fullScreen: Boolean = false;
 		var startup: Boolean = true;
 		var selectorUp: Boolean = true;
-		//static public var movejoy: Boolean = false; //999
-
-		//murray
-		var murray: int = 0;
-		//snowball
 
 		//progress
 		var snowmanComplete, cabinOpen: Boolean = false
 		var overSnowball, overWheel, leftSnowball, rightSnowball, rightWheel, leftWheel: Boolean = false;
 		var bulletList: Array = new Array();
-
-		var gotitem: String;
-
 		//quests
 		var toilclear = false;
 		var snowmanquest: int = 0;
-		//item stuff
-		var hasBamboo, hasMeat, hasKey, hasGelato: Boolean = false;
-		var hasSkis: Boolean = false;
-		var holding: Boolean = false;
-		var holdingitem: String = "gelato";
-
-		var worldmap, sledding, skiing, menubaropen, startscreen: Boolean = false;
+		
 		//stages
 		public var currentStage: Number = 2;
 		var inside: Boolean = false;
-
 		var cut: Boolean = false;
-
-		var hp: Number = 6;
 
 		var pushing, wpushing, skimode: Boolean = false;
 
@@ -112,6 +102,8 @@
 
 
 		//other
+		var hp: Number = 6;
+		var coinCount: int = 0;
 		public var lifeC: Number = 3;
 		public var paused: Boolean = false;
 		var attacking: Boolean = false;
@@ -123,10 +115,7 @@
 		var attack_count: Number = 0;
 		var safe: Boolean = false;
 		var convo: Boolean = false;
-
-		//coin
-		var coinCount: int = 0;
-
+		
 		//train
 		var train: Train;
 		public var waffling, bruning, waffleSuccess: Boolean = false;
@@ -137,19 +126,14 @@
 
 		//	player settings
 
-		var player_topSpeed: Number = 10; //	This is the fastest the player will be able to go
-		var player_acceleration: Number = 0.4; //	The speed that the player speeds up
-		var player_friction: Number = 0.8; //	The speed that the player slows down once key is let go
-		var player_1stJumpHeight: Number = -18; //	The first jump height
-		var player_2ndJumpHeight: Number = -10; //	If player_doubleJump is true, this will be height of second jump
-		var player_gravity: Number = 1; //	The acceleration of the fall.
-		var player_maxGravity: Number = 25; //   fastest the player will be able to fall
-		var player_doubleJump: Boolean = false; //	Determinds whether player will double jump or not
-		var player_bounce: Boolean = false; //	Determinds whether player will bounce off the walls like a ball
-		var player_bounciness: Number = -1.5; //	How bouncy the player will be if player_bounce is true
-		var player_sideScrollingMode: Boolean = false; //	Determinds whether player or background moves.
-
-
+		var player_topSpeed: Number = 10; //	max speed
+		var player_acceleration: Number = 0.4; //	acc
+		var player_friction: Number = 0.8;
+		var player_1stJumpHeight: Number = -18;
+		var player_2ndJumpHeight: Number = -10; //	deactivated for now
+		var player_gravity: Number = 1;
+		var player_maxGravity: Number = 25; //   max fall speed
+		var player_doubleJump: Boolean = false; //	maybe maybe not
 
 		// other player variables:
 
@@ -159,8 +143,9 @@
 		var player_xRight: Number = 0;
 		var player_xLeft: Number = 0;
 		public static var player_y: Number = 0;
-
-		//player stuff
+		// collisions of the player:
+		var downBumping, leftBumping, upBumping, rightBumping, underBumping: Boolean = false;
+		//more player stuff
 		var invincibilityTimeLeft: Number;
 		var invicounter: Number = 40;
 		var isInvincible: Boolean = false;
@@ -169,7 +154,6 @@
 		var isSafe: Boolean = false;
 
 		//sounds
-
 		var bg1: Sound = new bg();
 		var bg2: Sound = new pixles();
 		var bg3: Sound = new winter();
@@ -181,48 +165,25 @@
 		var hurt: hurtsound = new hurtsound();
 		var nosound: blank = new blank();
 		var sadSound: Sad = new Sad();
-
+		//sound channel   ** should make one for soundFX too **
 		var sfx: SoundChannel = new SoundChannel();
-
 		var channel: SoundChannel = new SoundChannel();
 		var soundPosition: int;
 		var musicon: Boolean = true;
 		var currentsong = bg1;
 
-
 		//savedata
 		var so: SharedObject = SharedObject.getLocal("/");
-
+		//keeping track of coins and enemies
 		var coinstaken: Array = [];
 		var enemiestaken: Array = [];
 
-		var fullScreen: Boolean = false;
-
-
-
-		// collisions of the player:
-		var downBumping, leftBumping, upBumping, rightBumping, underBumping: Boolean = false;
-
-
-
 		//	keys pressed 
 		public static var holditem, doneTalking, leftPressed,
-			rightPressed, upPressed, downPressed, spacePressed, enterPressed, transfer: Boolean = false;
-		//talking
-		var Aposition: int;
-		var textPosition: int;
-		var speech: String;
-		var speechName: String;
-		var textSpeed: int = 1;
-		var script: Array = new Array;
+		rightPressed, upPressed, downPressed, spacePressed, enterPressed, transfer: Boolean = false;
+		
+		//for enemy, stupid solution
 		var hurtbox = false;
-		//yesno
-		var ask, end: Boolean = false;
-		public static var question: Boolean = false;
-		var endquestion: String;
-		var qyes: Boolean = true;
-		public var yesnoCase: int = 0;
-		var questionDone, select: Boolean = false;
 
 
 		public function Main() {
@@ -233,9 +194,9 @@
 
 		function createGame() {
 			//android controls
-			/*joystick = new Joystick(30, 80); //999
+			joystick = new Joystick(30, 80);
 			upButton = new GameButton(this, 30, 90, false);
-			spaceButton = new GameButton(this, 200, 90);*/
+			spaceButton = new GameButton(this, 200, 90);
 
 			//android stuff
 			stage.addEventListener(Event.ACTIVATE, fl_Activate);
@@ -252,22 +213,18 @@
 			addChild(player);
 			addChild(snow);
 			addChild(ui);
-			//addChild(joystick); //999
-			//addChild(spaceButton);
-			//addChild(upButton);
+			joyDepth();
+			
 			positions();
 
 			ui.x = stage.x;
-			ui.y = 720;
-			t.x = 0; //can't remember what this is??
-			t.y = 0;
-			border.x = 0;
-			border.y = 0;
+			ui.y = stage.stageHeight;
 
 			//SETTINGS
-			//joystick.visible = false; //999
-			//spaceButton.visible = false;
-			//upButton.visible = false;
+			joystick.visible = false;
+			spaceButton.visible = false;
+			upButton.visible = false;
+			
 			fullScreen = true;
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 
@@ -277,7 +234,7 @@
 			//event listeners
 			stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
 
-			//ui.hearts.addEventListener(MouseEvent.CLICK, doface);
+			ui.hearts.addEventListener(MouseEvent.CLICK, doface);
 			ui.face.addEventListener(MouseEvent.CLICK, toggleScreen);
 
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
@@ -314,11 +271,11 @@
 			joyDepth();
 
 		}
-		function joyDepth():void {
-			//addChild(joystick); //999
-			//addChild(spaceButton);
-			//addChild(upButton);
-			//addChild(border);
+		function joyDepth(): void {
+			addChild(joystick);
+			addChild(spaceButton);
+			addChild(upButton);
+			addChild(border);
 		}
 		public function removecs(): void {
 			removeChild(cs);
@@ -708,7 +665,7 @@
 
 				if (collisions.door_bar.hitTestObject(player.hitbox) && !player_inAir) {
 					door = true;
-					//joystick.activateUp(); //999
+					joystick.activateUp(); //999
 					if (upPressed) {
 						newStage(1);
 						transition();
@@ -914,7 +871,7 @@
 
 			if (collisions.door_station.hitTestObject(player.hitbox) && !player_inAir) {
 				door = true;
-				//joystick.activateUp(); //999
+				joystick.activateUp(); //999
 				if (upPressed) {
 					positions2("winter2");
 					transition();
@@ -928,7 +885,7 @@
 
 			if (collisions.door1.hitTestObject(player.hitbox) && !player_inAir) {
 				door = true;
-				//joystick.activateUp(); //999
+				joystick.activateUp(); //999
 				if (upPressed) {
 
 					if (hasKey) {
@@ -1006,7 +963,7 @@
 
 				if (collisions.curryDoor.hitTestObject(player.hitbox) && !player_inAir) {
 					door = true;
-					//joystick.activateUp(); //999
+					joystick.activateUp(); //999
 					if (!downtownInside) {
 						if (upPressed) {
 							fadeOut(collisions.curryShop);
@@ -1031,7 +988,7 @@
 				}
 				if (collisions.gelatoDoor.hitTestObject(player.hitbox) && !player_inAir) {
 					door = true;
-					//joystick.activateUp(); //999
+					joystick.activateUp(); //999
 					if (!downtownInside) {
 						if (upPressed && !cut) {
 							fadeOut(collisions.gelatoShop);
@@ -1319,19 +1276,11 @@
 
 
 				if (rightBumping || rightSnowball || rightWheel) {
-					if (player_bounce) {
-						player_xRight *= player_bounciness;
-					} else {
-						player_xRight = 0;
-					}
+					player_xRight = 0;
 				}
 
 				if (leftBumping || leftSnowball || leftWheel) {
-					if (player_bounce) {
-						player_xLeft *= player_bounciness;
-					} else {
 						player_xLeft = 0;
-					}
 				}
 				if (upBumping) {
 					player_y = 1;
@@ -1394,9 +1343,9 @@
 			collisions.y -= player_y;
 
 			if (skiing || inTrain || door) {
-				//joystick.activateUp(); //999
+				joystick.activateUp(); //999
 			} else {
-				// joystick.disableUp(); //999
+				 joystick.disableUp(); //999
 			}
 			if (contains(t) && !sledding) {
 				removeChild(t);
@@ -1455,9 +1404,9 @@
 				skiing = true;
 				cut = true;
 				positions2("cabin inside");
-				/*addChild(joystick);
+				addChild(joystick);
 				joystick.activateUp();
-				addChild(border);*/ //999
+				addChild(border);
 
 			}
 		}
@@ -1977,9 +1926,9 @@
 				ui.menubar.musicbtn.addEventListener(MouseEvent.CLICK, domusic);
 				ui.menubar.exitbtn.addEventListener(MouseEvent.CLICK, doexit);
 				ui.menubar.savebtn.addEventListener(MouseEvent.CLICK, dosave);
-				//ui.menubar.joySettings.addEventListener(MouseEvent.CLICK, doJoy); //999
+				ui.menubar.joySettings.addEventListener(MouseEvent.CLICK, doJoy); //999
 
-				/*function doJoy(e: MouseEvent): void {
+				function doJoy(e: MouseEvent): void {
 					if (!movejoy) {
 						joystick.moveJoy();
 						movejoy = true;
@@ -1987,7 +1936,7 @@
 						joystick.moveJoyDone();
 						movejoy = false;
 					}
-				}*/ //999
+				}
 
 				function dosave(e: MouseEvent): void {
 					saveGame();
@@ -2030,7 +1979,7 @@
 		}
 
 
-		/*function doface(e: MouseEvent): void {
+		function doface(e: MouseEvent): void {
 			if (joystick.visible) {
 				joystick.visible = false;
 				spaceButton.visible = false;
@@ -2040,7 +1989,7 @@
 				spaceButton.visible = true;
 				upButton.visible = true;
 			}
-		}*/ //999
+		}
 
 
 

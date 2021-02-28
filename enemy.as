@@ -1,6 +1,5 @@
 ﻿package {
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.*;
 	
 	public class Enemy extends MovieClip {
@@ -86,5 +85,4 @@
 			}
 		}
 	}
-
 }

@@ -1,7 +1,6 @@
 ﻿package{
 
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.*;
 	import flash.geom.Point;
 

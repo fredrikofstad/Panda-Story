@@ -1,6 +1,5 @@
 ﻿package {
 	import flash.display.MovieClip;
-	import flash.events.Event;
 	import flash.events.*;
 
 	public class Snowball extends MovieClip {
@@ -15,7 +14,6 @@
 
 
 		public function Snowball() {
-			// constructor code
 			this.addEventListener(Event.ENTER_FRAME, upDate);
 			originalX = this.x;
 

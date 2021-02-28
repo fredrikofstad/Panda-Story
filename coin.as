@@ -1,7 +1,6 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.*;
-	import flash.events.Event;
 
 	import flash.media.Sound;
 	public class Coin extends MovieClip {

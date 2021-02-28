@@ -11,7 +11,6 @@
 
 
 		public function Rock(sled = true) {
-			// constructor code
 			if (sled) {
 				x = 1400;
 				y = 650;
