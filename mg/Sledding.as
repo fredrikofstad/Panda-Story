@@ -6,8 +6,8 @@
 
 
 	public class Sledding extends MovieClip {
-		var friction: Number = .75; 
-		var velocity: Number = 50; 
+		var friction: Number = .75;
+		var velocity: Number = 50;
 		var direction: int = -1; //resets to -1 every time the jump starts
 		var jumping = false;
 		var rockList: Array = new Array();
@@ -20,12 +20,18 @@
 		var lost: Boolean = true;
 		var start: Boolean = true;
 		var hurt: hurtsound = new hurtsound();
-		var snow2: Snow = new Snow(3,200,false);
+		var snow2: Snow = new Snow(3, 200, false);
+		
+		var m = MovieClip(root);
+		var t: Touch = new Touch;
 
 		public function Sledding() {
 			// constructor code
 			addEventListener(Event.ENTER_FRAME, upDate);
 			addChild(snow2);
+			addChild(t);
+			t.hu.addEventListener(TouchEvent.TOUCH_BEGIN, dohu);
+			t.hs.addEventListener(TouchEvent.TOUCH_BEGIN, dohs);
 			HP = 6;
 
 
@@ -160,8 +166,8 @@
 
 
 		//jumping function
-		function mainJump() {  
-			sled.y += velocity * direction; 
+		function mainJump() {
+			sled.y += velocity * direction;
 			if (direction < 0) {
 				velocity *= friction; //reduce velocity goin up
 			} else {
@@ -170,9 +176,28 @@
 
 			if (velocity < 1) direction = 1; //if less than 1 pixel, change direction
 			if (sled.y > 390) { //floor
-				sled.y = 390; 
+				sled.y = 390;
 				jumping = false;
 			}
+		}
+		function dohu(e: TouchEvent): void {
+			addEventListener(TouchEvent.TOUCH_END, endhu);
+			Main.upPressed = true;
+		}
+		function dohs(e: TouchEvent): void {
+			addEventListener(TouchEvent.TOUCH_END, endhs);
+			m.space();
+		}
+
+		//FINISH
+		function endhu(e: TouchEvent): void {
+			removeEventListener(TouchEvent.TOUCH_END, endhu);
+			Main.upPressed = false;
+		}
+
+		function endhs(e: TouchEvent): void {
+			removeEventListener(TouchEvent.TOUCH_END, endhs);
+			m.spaceUp();
 		}
 
 		function restart(): void {

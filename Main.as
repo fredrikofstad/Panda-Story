@@ -31,7 +31,6 @@
 		var ui: ui_mc = new ui_mc; //my ui elements
 		var cs: cutscene = new cutscene; //my cutscene handler
 		var snow: Snow = new Snow; //falling snow
-		var t: Touch = new Touch; //for the sledding game???
 		var border: Border = new Border; //border cause I'm too stupid to figure out how to scale properly
 		
 		//event booleans
@@ -234,18 +233,14 @@
 			//event listeners
 			stage.addEventListener(Event.ENTER_FRAME, onEnterFrameHandler);
 
-			ui.hearts.addEventListener(MouseEvent.CLICK, doface);
-			ui.face.addEventListener(MouseEvent.CLICK, toggleScreen);
-
 			stage.addEventListener(KeyboardEvent.KEY_UP, keyUpHandler);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
-			t.hu.addEventListener(TouchEvent.TOUCH_BEGIN, dohu);
-			t.hs.addEventListener(TouchEvent.TOUCH_BEGIN, dohs);
-
 			//ui
 			ui.wpbutton.addEventListener(MouseEvent.CLICK, dowm);
 			ui.itembutton.addEventListener(MouseEvent.CLICK, doitem);
 			ui.menubtn.addEventListener(MouseEvent.CLICK, domenu);
+			ui.hearts.addEventListener(MouseEvent.CLICK, doface);
+			ui.face.addEventListener(MouseEvent.CLICK, toggleScreen);
 
 
 		}
@@ -1347,9 +1342,6 @@
 			} else {
 				 joystick.disableUp(); //999
 			}
-			if (contains(t) && !sledding) {
-				removeChild(t);
-			}
 
 			//bar mirror
 			if (collisions.mirror.hitTestObject(player)) {
@@ -1390,7 +1382,6 @@
 				sledGame.addEventListener(Event.REMOVED, removesled);
 				sledding = true;
 				paused = true;
-				addChild(t);
 				addChild(border);
 			}
 		}
@@ -1993,40 +1984,11 @@
 
 
 
-		//START
-
-
-
-
-		function dohu(e: TouchEvent): void {
-			addEventListener(TouchEvent.TOUCH_END, endhu);
-			upPressed = true;
-		}
-		function dohs(e: TouchEvent): void {
-			addEventListener(TouchEvent.TOUCH_END, endhs);
-			space();
-		}
-
-		//FINISH
-		function endhu(e: TouchEvent): void {
-			removeEventListener(TouchEvent.TOUCH_END, endhu);
-			upPressed = false;
-		}
-
-		function endhs(e: TouchEvent): void {
-			removeEventListener(TouchEvent.TOUCH_END, endhs);
-			spaceUp();
-
-
-
-		} //end TOUCH
-
 		//border
 		public function transition(): void {
 			addChild(border);
 			border.transition.gotoAndPlay(2);
 		}
-
 
 		//downtown functionality
 		function fadeIn(mc: MovieClip): void {
