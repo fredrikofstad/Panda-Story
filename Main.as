@@ -10,7 +10,7 @@
 		var levelManager: LevelManager = new LevelManager;
 		var parallax: Parallax = new Parallax(levelManager);
 		var background: Background = new Background;
-		var player: Player = new Player(input, levelManager); //panda
+		var player: Player = new Player(levelManager); //panda
 		var ui: UI = new UI(stage.stageHeight);
 		var screens: Screens = new Screens();
 		var snow: Snow = new Snow;

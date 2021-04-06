@@ -141,12 +141,12 @@
 			//downtown inside
 			if (curryDoor.active || gelatoDoor.active || twosonDoor.active || stationDoor.active) {
 				if (downtownInside) {
-					if (Main.key.down) {
+					if (Input.down) {
 						downtownInside = false;
 						downTownExterior.door.play();
 					}
 				} else {
-					if (Main.key.up) {
+					if (Input.up) {
 						downtownInside = true;
 						downTownExterior.door.play();
 					}
@@ -232,11 +232,11 @@
 				}
 			} if (Progression.flag.skateUnlocked) {
 				if (player.hitTestObject(skateField1) || player.hitTestObject(skateField2)) {
-					if (Main.key.space) {
+					if (Input.space) {
 						player.riding = true;
 					}
 				} else {
-					if (player.player_xLeft < 1 && player.player_xRight < 1 && Main.key.space) {
+					if (player.player_xLeft < 1 && player.player_xRight < 1 && Input.space) {
 						player.riding = false;
 					}
 				}

@@ -13,7 +13,7 @@
 			Main.panda.halt();
 		}
 		function gotoLevel(level: Number, other: int = 0) {
-			if (Main.key.space) {
+			if (Input.space) {
 				Main.level.changeStage(levelselect, other);
 				Main.screen.changeScreens("normal");
 				removeEventListener(Event.ENTER_FRAME, loop);
@@ -63,11 +63,11 @@
 				worldtext.text = "";
 			}
 
-			if (Main.key.left) {
+			if (Input.left) {
 				map.rotation += rotationspeed;
 				panda.scaleX = 1;
 			}
-			if (Main.key.right) {
+			if (Input.right) {
 				map.rotation -= rotationspeed;
 				panda.scaleX = -1;
 			}

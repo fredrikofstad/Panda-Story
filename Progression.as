@@ -30,6 +30,7 @@
 			Frigg = so.data.Frigg;
 			ticket = so.data.ticket;
 			skateUnlocked = so.data.skateUnlocked;
+			toilclear = so.data.toilclear;
 			ticket = so.data.ticket;
 		}
 		public static function get flag():Progression {

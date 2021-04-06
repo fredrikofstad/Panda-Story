@@ -15,6 +15,7 @@
 
 
 		public function UI(startY: int) {
+			//need mute button, consider seperate music and sfx
 			wpbutton.addEventListener(MouseEvent.CLICK, doWm);
 			itembutton.addEventListener(MouseEvent.CLICK, doItem);
 			menubtn.addEventListener(MouseEvent.CLICK, doMenu);
@@ -33,11 +34,11 @@
 			hearts.gotoAndStop(Main.panda.hp);
 			life.text = String(Main.panda.life);
 			coins_txt.text = String(Main.i.coinAmount);
-			if (Main.key.i && coolDown == 0) {
+			if (Input.i && coolDown == 0) {
 				coolDown = 10;
 				doItem2();
 			}
-			if (Main.key.m && coolDown == 0) {
+			if (Input.m && coolDown == 0) {
 				coolDown = 10;
 				doWm2();
 			}
@@ -86,6 +87,7 @@
 			NativeApplication.nativeApplication.exit();
 		}
 		function doSave(e: MouseEvent): void {
+			Mixer.play.FX("coin");
 			Data.saveGame();
 		}
 	}

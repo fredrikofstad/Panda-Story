@@ -79,7 +79,7 @@
 
 			//talking
 			if (head) {
-				if (this.hitTestObject(player.hitbox) && Main.key.space) {
+				if (this.hitTestObject(player.hitbox) && Input.space) {
 					Main.u.talk.say(["Sure, just use my head as a ladder..."], _name);
 					head = false;
 				}

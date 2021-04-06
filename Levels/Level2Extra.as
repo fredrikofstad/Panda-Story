@@ -11,7 +11,7 @@
 		}
 		override function loopCode(): void {
 			door.enter(2, 2);
-			if(doll.hitTestObject(player.hitbox) && Main.key.space) {
+			if(doll.hitTestObject(player.hitbox) && Input.space) {
 				say(["This doll looks familiar"]);
 			}
 		}

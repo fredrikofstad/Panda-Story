@@ -38,7 +38,7 @@
 		}
 
 		public function enter(levelselect: int, extra: int = 0): void {
-			if (active && Main.key.up) {
+			if (active && Input.up) {
 				Main.level.changeStage(levelselect, extra);
 			}
 		}
