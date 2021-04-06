@@ -5,14 +5,14 @@
 	
 	public class Input extends Sprite{
 		
-		protected var leftPressed: Boolean = false;
-		protected var rightPressed: Boolean = false;
-		protected var upPressed: Boolean = false;
-		protected var downPressed: Boolean = false;
-		protected var spacePressed: Boolean = false;
-		protected var enterPressed: Boolean = false;
-		protected var mPressed: Boolean = false;
-		protected var iPressed: Boolean = false;
+		static var leftPressed: Boolean = false;
+		static var rightPressed: Boolean = false;
+		static var upPressed: Boolean = false;
+		static var downPressed: Boolean = false;
+		static var spacePressed: Boolean = false;
+		static var enterPressed: Boolean = false;
+		static var mPressed: Boolean = false;
+		static var iPressed: Boolean = false;
 
 		public function Input() {
 			addEventListener(Event.ADDED_TO_STAGE, start);
@@ -115,35 +115,35 @@
 		
 		//Get functions
 		
-		public function get up():Boolean
+		public static function get up():Boolean
 		{
 			return upPressed;
 		}
-		public function get down():Boolean
+		public static function get down():Boolean
 		{
 			return downPressed;
 		}
-		public function get left():Boolean
+		public static function get left():Boolean
 		{
 			return leftPressed;
 		}
-		public function get right():Boolean
+		public static function get right():Boolean
 		{
 			return rightPressed;
 		}
-		public function get space():Boolean
+		public static function get space():Boolean
 		{
 			return spacePressed;
 		}
-		public function get keyEnter():Boolean
+		public static function get keyEnter():Boolean
 		{
 			return enterPressed;
 		}
-		public function get i():Boolean
+		public static function get i():Boolean
 		{
 			return iPressed;
 		}
-		public function get m():Boolean
+		public static function get m():Boolean
 		{
 			return mPressed;
 		}

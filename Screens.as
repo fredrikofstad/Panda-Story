@@ -21,18 +21,18 @@
 			if (currentLabel == "start") {
 				if (selectorUp) {
 					selector.gotoAndStop(1);
-					if (Main.key.down) {
+					if (Input.down) {
 						selectorUp = false;
 					}
-					if (Main.key.space) {
+					if (Input.space) {
 						dostart2();
 					}
 				} else {
 					selector.gotoAndStop(2);
-					if (Main.key.up) {
+					if (Input.up) {
 						selectorUp = true;
 					}
-					if (Main.key.space) {
+					if (Input.space) {
 						doload2();
 					}
 				}
@@ -48,8 +48,7 @@
 
 		public function changeScreens(screen: String): void {
 			/*
-			start_button.removeEventListener(MouseEvent.CLICK, dostart);
-			load_button.removeEventListener(MouseEvent.CLICK, doload);
+			For game over screen
 			continue_button.removeEventListener(MouseEvent.CLICK, docontinue);
 			save_and_quit_button.removeEventListener(MouseEvent.CLICK, dosavequit);*/
 

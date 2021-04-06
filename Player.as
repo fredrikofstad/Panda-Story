@@ -50,12 +50,10 @@
 		private var safetyTimer: int = 0;
 
 		//injects:
-		private var key: Input;
 		private var level: LevelManager;
 
 
-		public function Player(input: Input, level: LevelManager) {
-			this.key = input;
+		public function Player(level: LevelManager) {
 			this.level = level;
 			createPlayer();
 		}
@@ -120,7 +118,7 @@
 		}
 		function battle(): void {
 			if (!Main.paused) {
-				if (!invincible && !safe && key.space && !riding) {
+				if (!invincible && !safe && Input.space && !riding) {
 					attacking = true;
 				}
 				if (_clothes == "normal" && _state == "attack") {
@@ -151,7 +149,7 @@
 				player_acceleration= 0.4;
 			}
 			if (!Main.paused) {
-				if (key.right) {
+				if (Input.right) {
 					if (player_xRight < player_topSpeed) {
 						player_xRight += player_acceleration;
 						scaleX = -1;
@@ -165,7 +163,7 @@
 						player_xRight = 0;
 					}
 				}
-				if (key.left) {
+				if (Input.left) {
 					if (player_xLeft < player_topSpeed) {
 						player_xLeft += player_acceleration;
 						scaleX = 1;
@@ -203,7 +201,7 @@
 				if (underBumping) {
 					player_y = -2;
 				}
-				if (key.up && jump) {
+				if (Input.up && jump) {
 					if (downBumping) {
 						player_y = player_1stJumpHeight;
 						player_doubleJumpReady = false;

@@ -140,7 +140,7 @@
 					}
 
 				}
-				if (panda.hitTestObject(tog.marco) && Main.key.space && !cut && events < 2) {
+				if (panda.hitTestObject(tog.marco) && Input.space && !cut && events < 2) {
 					tog.t2a.marcoDead.gotoAndStop(2);
 					cut = true;
 					events = 2;
@@ -198,7 +198,7 @@
 				} else {
 					tog.chefv.visible = false;
 				}
-				if (panda.hitTestObject(tog.gerald) && Main.key.space && !cut && events < 3) {
+				if (panda.hitTestObject(tog.gerald) && Input.space && !cut && events < 3) {
 					tog.geraldDead.gotoAndStop(2);
 					cut = true;
 					events = 5;
@@ -223,10 +223,10 @@
 				}
 
 				//events
-				if (panda.hitbox.hitTestObject(tog.waffle) && !inGame && Main.key.space && waffleMission == 1) {
+				if (panda.hitbox.hitTestObject(tog.waffle) && !inGame && Input.space && waffleMission == 1) {
 					startGame(waffle);
 				}
-				if (panda.hitbox.hitTestObject(tog.brunost) && !inGame && Main.key.space && waffleMission == 3) {
+				if (panda.hitbox.hitTestObject(tog.brunost) && !inGame && Input.space && waffleMission == 3) {
 					startGame(brun);
 				}
 				//characters
@@ -259,7 +259,7 @@
 					}
 				}
 				if (events < 7) {
-					if (panda.hitTestObject(tog.thomas) && Main.key.space && !cut) {
+					if (panda.hitTestObject(tog.thomas) && Input.space && !cut) {
 						tog.thomasDead.gotoAndStop(2);
 						events = 6;
 						bodyWall2 = false;
@@ -290,10 +290,10 @@
 				}
 
 				//characters
-				if (panda.hitbox.hitTestObject(tog.eat) && Main.key.space && !inGame && waffleMission == 5) {
+				if (panda.hitbox.hitTestObject(tog.eat) && Input.space && !inGame && waffleMission == 5) {
 					startGame(eat);
 				}
-				if (panda.hitbox.hitTestObject(tog.sink) && Main.key.space && waffleMission == 6) {
+				if (panda.hitbox.hitTestObject(tog.sink) && Input.space && waffleMission == 6) {
 					holdItem = null
 					depthOrder();
 					next(4);
@@ -326,7 +326,7 @@
 				} else {
 					tog.pengiV.visible = false;
 				}
-				if (panda.hitTestObject(tog.engineer) && Main.key.space && !cut) {
+				if (panda.hitTestObject(tog.engineer) && Input.space && !cut) {
 					tog.engineerDead.gotoAndStop(2);
 					events = 8;
 					bodyWall2 = false;
@@ -365,10 +365,10 @@
 				} else {
 					talk(tog.daniel, ["The train is running out of steam, and we have no engineer...", "I bet we just need some more charcoal though"], "Daniel");
 				}
-				if (panda.hitbox.hitTestObject(tog.coalBox) && Main.key.space) {
+				if (panda.hitbox.hitTestObject(tog.coalBox) && Input.space) {
 					holdItem = "coal";
 				}
-				if (panda.hitbox.hitTestObject(tog.engine) && Main.key.space && holdItem == "coal" && !inGame) {
+				if (panda.hitbox.hitTestObject(tog.engine) && Input.space && holdItem == "coal" && !inGame) {
 					startGame(valve);
 				}
 				if (valveSuccess) {
@@ -391,7 +391,7 @@
 					}
 
 				}
-				if (panda.hitTestObject(tog.daniel) && Main.key.space && !cut) {
+				if (panda.hitTestObject(tog.daniel) && Input.space && !cut) {
 					tog.danielDead.gotoAndStop(2);
 					events = 9;
 					tog.x = 6315.85;
@@ -445,24 +445,24 @@
 				//}
 
 				//events
-				if (panda.hitbox.hitTestObject(tog.coalBox) && Main.key.space) {
+				if (panda.hitbox.hitTestObject(tog.coalBox) && Input.space) {
 					holdItem = "coal";
 				}
-				if (panda.hitbox.hitTestObject(tog.engine) && Main.key.space && holdItem == "coal" && !inGame) {
+				if (panda.hitbox.hitTestObject(tog.engine) && Input.space && holdItem == "coal" && !inGame) {
 					startGame(valve);
 				}
-				if (panda.hitbox.hitTestObject(tog.waffle) && Main.key.space && !inGame) {
+				if (panda.hitbox.hitTestObject(tog.waffle) && Input.space && !inGame) {
 					startGame(waffle);
 				}
-				if (panda.hitbox.hitTestObject(tog.brunost) && Main.key.space && !inGame && holdItem == "waffle") {
+				if (panda.hitbox.hitTestObject(tog.brunost) && Input.space && !inGame && holdItem == "waffle") {
 					startGame(brun);
 				}
 				if (holdItem == "brun" && !inGame) {
-					if ((panda.hitbox.hitTestObject(tog.table1) || (panda.hitbox.hitTestObject(tog.table2))) && Main.key.space) {
+					if ((panda.hitbox.hitTestObject(tog.table1) || (panda.hitbox.hitTestObject(tog.table2))) && Input.space) {
 						startGame(eat);
 					}
 				}
-				if (panda.hitbox.hitTestObject(tog.sink) && Main.key.space && holdItem == "wash") {
+				if (panda.hitbox.hitTestObject(tog.sink) && Input.space && holdItem == "wash") {
 					holdItem = null
 				}
 				
@@ -470,7 +470,7 @@
 
 			}
 			//objects
-			if (panda.hitbox.hitTestObject(tog.trainHorn) && Main.key.space && tog.trainHorn.currentFrame == 1) {
+			if (panda.hitbox.hitTestObject(tog.trainHorn) && Input.space && tog.trainHorn.currentFrame == 1) {
 				tog.trainHorn.gotoAndPlay(2);
 				Mixer.play.FX("horn");
 			}
@@ -504,12 +504,12 @@
 						doors[i].alpha = 1;
 					}
 
-					if (Main.key.down && inner) {
+					if (Input.down && inner) {
 						doors[i].ani.gotoAndPlay(2);
 						inner = false;
 						fadeIn(tog.t2);
 						fadeIn(tog.t2a);
-					} else if (Main.key.up && !inner) {
+					} else if (Input.up && !inner) {
 						doors[i].ani.gotoAndPlay(2);
 						inner = true;
 						fadeOut(tog.t2);
@@ -547,13 +547,13 @@
 
 			//movement
 			if (!Main.isPaused && !cut) {
-				if (Main.key.right && !bodyWall2 && (!rightBumping || !inner && !loco)) {
+				if (Input.right && !bodyWall2 && (!rightBumping || !inner && !loco)) {
 					player_xRight = speed;
 					panda.scaleX = -1;
 				} else {
 					player_xRight = 0;
 				}
-				if (Main.key.left && !bodyWall && (!leftBumping || !inner && !loco)) {
+				if (Input.left && !bodyWall && (!leftBumping || !inner && !loco)) {
 					player_xLeft = speed;
 					panda.scaleX = 1;
 				} else {
@@ -580,13 +580,13 @@
 
 		function talk(mc: MovieClip, body: Array, nName: String = "", nGender: Boolean = true): void {
 
-			if (mc.hitTestObject(tog.circle) && Main.key.space) {
+			if (mc.hitTestObject(tog.circle) && Input.space) {
 				Main.u.talk.say(body, nName, nGender);
 			}
 		}
 		function talk2(mc: MovieClip, body: Array, nName: String, f: Function = null, arg: int = 0): void {
 
-			if (mc.hitTestObject(tog.circle) && Main.key.space) {
+			if (mc.hitTestObject(tog.circle) && Input.space) {
 				Main.u.talk.say(body, nName);
 				if (f != null) {
 					f(arg);

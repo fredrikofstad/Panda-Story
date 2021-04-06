@@ -58,7 +58,7 @@
 
 		}
 		public function get touch() {
-			if (this.hitTestObject(player.hitbox) && Main.key.space && player.player_xLeft < 0.5 && player.player_xRight < 0.5 && !asking) {
+			if (this.hitTestObject(player.hitbox) && Input.space && player.player_xLeft < 0.5 && player.player_xRight < 0.5 && !asking) {
 				return true;
 			} else {
 				asking = false;

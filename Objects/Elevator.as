@@ -52,7 +52,7 @@
 		}
 
 		public function up(distance: int = 470) {
-			if (!elevatorRise && hitTestObject(player.hitbox) && Main.key.space) {
+			if (!elevatorRise && hitTestObject(player.hitbox) && Input.space) {
 				_distance = distance;
 				elevatorRise = true;
 				liftOff();
@@ -60,7 +60,7 @@
 		}
 
 		public function down(distance: int = 0) {
-			if (!elevatorFall && hitTestObject(player.hitbox) && Main.key.space) {
+			if (!elevatorFall && hitTestObject(player.hitbox) && Input.space) {
 				_distance = distance;
 				elevatorFall = true;
 				liftOff();

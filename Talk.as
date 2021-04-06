@@ -93,7 +93,7 @@
 
 				} else {
 					arrow.visible = true;
-					if (Main.key.space) {
+					if (Input.space) {
 						arrayPosition++
 						textPosition = 0;
 						if (arrayPosition >= body.length) {
@@ -116,17 +116,17 @@
 
 					if (qyes) {
 						arrow.gotoAndStop("yes");
-						if (Main.key.right) {
+						if (Input.right) {
 							qyes = false;
 						}
 					} else {
 						arrow.gotoAndStop("no");
-						if (Main.key.left) {
+						if (Input.left) {
 							qyes = true;
 						}
 					}
 
-					if (Main.key.space) {
+					if (Input.space) {
 						if (qyes) {
 							signal = 2;
 						} else {
