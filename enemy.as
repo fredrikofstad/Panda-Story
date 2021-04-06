@@ -1,33 +1,27 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.*;
-	
+
 	public class Enemy extends MovieClip {
-		var player: MovieClip;
-		var mainTimeLine = MovieClip(root);
+		var player;
 		var damage: Number = 1;
 		var speed: Number = 5;
-		var distance: Number = 90;
+		var distance: Number = 200;
 		var r_distance: Number = 0;
 		var knockback: Number = 20;
 		var going_right: Boolean = true;
 		var died: Boolean = false;
-		var hurt: hurtsound = new hurtsound();
-		var die: enemydiesound = new enemydiesound();
 
 		public function Enemy() {
-			this.addEventListener(Event.ENTER_FRAME, upDate);
+			this.addEventListener(Event.ENTER_FRAME, loop, false, 0, true);
+			this.addEventListener(Event.REMOVED_FROM_STAGE, kill, false, 0, true);
 			r_distance = distance * 2;
-			if (this.name.indexOf("man") >= 0) {
-				this.ani.gotoAndStop("salaryman");
-			} else {
-				this.ani.gotoAndStop("monkey");
-			}
+			gotoAndStop(1);
 
 		}
-		function upDate(e: Event): void {
-			mainTimeLine = MovieClip(root);
-			player = mainTimeLine.player;
+		function loop(e: Event): void {
+
+			player = Main.panda;
 			if (!died) {
 				if (going_right) {
 					x += speed;
@@ -46,43 +40,37 @@
 						distance = r_distance;
 					}
 				}
-			}
-
-			if (!died && mainTimeLine.hurtbox) {
-				if (this.hitbox.hitTestObject(player.hurtbox)) {
+				if (player.isAttacking && this.hitbox.hitTestObject(player.damage)) {
 					if (currentFrame < 2) {
-						die.play();
-						if (mainTimeLine.enemiestaken.indexOf(this.name) > -1) {
-							died = true;
-							this.removeEventListener(Event.ENTER_FRAME, upDate);
-							this.gotoAndStop(3);
-						} else {
-							died = true;
-							this.gotoAndStop(2);
-							mainTimeLine.enemiestaken.push(this.name);
-							trace(mainTimeLine.enemiestaken);
-							this.removeEventListener(Event.ENTER_FRAME, upDate);
+						this.removeEventListener(Event.ENTER_FRAME, loop);
+						Mixer.play.FX("die");
+						if (Main.i.enemyKilled(name)) {
+								died = true;
+								this.removeEventListener(Event.ENTER_FRAME, loop);
+								this.gotoAndStop(3);
+							} else {
+								died = true;
+								this.gotoAndStop(2);
+								Main.i.pushEnemy(name);
+							}
+
+						}
+					}
+
+
+					if (!died && this.hitbox.hitTestObject(player.hitbox)) {
+						if (currentFrame < 2) {
+							player.knockback();
+							if (!player.isInvincible) {
+								player.hurt();
+							}
 						}
 					}
 				}
-
 			}
-
-			if (!died && this.hitbox.hitTestObject(player.hitbox)) {
-				if (currentFrame < 2) {
-					if (!mainTimeLine.isInvincible) {
-						mainTimeLine.gotHit();
-						mainTimeLine.hp -= damage;
-						hurt.play();
-
-					}
-					if (player.scaleX == 1) {
-						player.x += knockback;
-					} else {
-						player.x -= knockback;
-					}
-				}
+			function kill(e: Event) {
+				this.removeEventListener(Event.ENTER_FRAME, loop);
+				this.removeEventListener(Event.REMOVED_FROM_STAGE, kill);
 			}
 		}
 	}
-}
