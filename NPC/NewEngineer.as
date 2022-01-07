@@ -3,10 +3,10 @@
 	import flash.display.MovieClip;
 	
 	
-	public class David extends NPC {
+	public class NewEngineer extends NPC {
 		
 		override function doAction():void{
-			level.doSkate();
+			Main.level.changeStage(8);
 		}
 	}
 	

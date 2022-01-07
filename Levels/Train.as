@@ -7,6 +7,7 @@
 	import flash.geom.Point;
 	import Cutscene.*;
 	import MiniGame.*;
+	import Objects.*;
 
 	public class Train extends LevelClass {
 
@@ -43,15 +44,17 @@
 		private var rightBumping, leftBumping: Boolean = false;
 		//bg
 		private var trees: Array = new Array();
-		private var treeSpeed = 7;
+		private var treeSpeed: int = 7;
+		private var treeAmount: int = 6;
+		private var bgState: String = "grass"
 		//sound
 		//var trainloop: Trainloop = new Trainloop();
 		private var trainDone: Boolean;
 		//progression
 		private var events: int = 0;
 		public var inGame: Boolean = false;
-		public var waffleSuccess: Boolean = false;
-		public var asakoForgive: Boolean = false;
+
+		private var outside: Boolean = true;
 
 
 		public function Train(_trainDone: Boolean = false) {
@@ -61,12 +64,12 @@
 
 		function createGame(): void {
 
-			bgTree(6);
+			bgTree();
+			treeChange(2);
 			addChild(tog);
 			tog.t3.alpha = 0;
-			carts = [tog.t3.cart1, tog.t3.cart2, tog.t3.cart3, tog.t3.cart4, tog.t3.cart5];
+			carts = [tog.cart1, tog.cart2, tog.cart3, tog.cart4, tog.cart5];
 			doors = [tog.door1, tog.door2, tog.door3, tog.door4];
-			//trainloop.play(0, 2);
 			depthOrder();
 			if (!trainDone) {
 				tog.gotoAndStop("start");
@@ -81,6 +84,7 @@
 		}
 
 		override function loopCode(): void {
+			bg.gotoAndStop(bgState);
 			panda = tog.circle;
 
 			//t2a
@@ -155,6 +159,7 @@
 					addChild(ex1);
 					ex1.gotoAndPlay(2);
 					ex1.victim.gotoAndStop("greene");
+					ex1.bg.gotoAndStop(bgState);
 					exScene = false;
 				}
 				if (ex1.currentLabel == "done") {
@@ -214,11 +219,14 @@
 					addChild(ex1);
 					ex1.gotoAndPlay(2);
 					ex1.victim.gotoAndStop("chef");
+					ex1.bg.gotoAndStop(bgState);
 					exScene = false;
 				}
 				if (ex1.currentLabel == "done") {
 					removeChild(ex1);
 					cut = false;
+					bgState = "water";
+					treeChange(3);
 					Main.u.transition();
 				}
 
@@ -274,10 +282,13 @@
 						addChild(ex1);
 						ex1.gotoAndPlay(2);
 						ex1.victim.gotoAndStop("marble");
+						ex1.bg.gotoAndStop(bgState);
 						exScene = false;
 					}
 					if (ex1.currentLabel == "done") {
 						removeChild(ex1);
+						bgState = "snow";
+						treeChange(1);
 						Main.u.transition();
 						events = 7;
 					}
@@ -339,6 +350,7 @@
 					addChild(ex1);
 					ex1.gotoAndPlay(2);
 					ex1.victim.gotoAndStop("penguin");
+					ex1.bg.gotoAndStop(bgState);
 					exScene = false;
 				}
 				if (ex1.currentLabel == "done") {
@@ -402,7 +414,6 @@
 					cut = true;
 				}
 				if (tog.danielDead.currentFrame == 3 && exScene) {
-					trace("now");
 					addChild(ex2);
 					ex2.gotoAndPlay(2);
 					exScene = false;
@@ -419,7 +430,7 @@
 					Main.panda.takeLife();
 				}
 				if (tog.danielDead.currentFrame == 5) {
-					///m.trainDepart() /// arrival
+					Main.level.changeStage(8);
 					Main.u.transition();
 				}
 
@@ -434,15 +445,16 @@
 
 				//characters
 
-				if (asakoForgive) {
+				if (Progression.flag.asakoForgive) {
 					talk(tog.asako, ["Hey panda! Fancy seeing you here again!", "Don't worry I'm done with the whole murder thing!"], "Asako", false);
 				} else {
 					talk(tog.asako, ["Oh... It's you. I still haven't forgotten about the bamboo...", "It really hurt y'know!"], "Asako", false);
 				}
 
-				//if (panda.hitbox.hitTestObject(tog.engineer) && Main.) {
-					//m.yesno("Are you ready to disembark?"); make engineer class talk
-				//}
+				if (panda.hitbox.hitTestObject(tog.newEngineer) && Input.space && Main.u.talk.ready) {
+					tog.newEngineer.ask2(["Are you ready to disembark?"], "Ready", "Wait");
+					trace("work");
+				}
 
 				//events
 				if (panda.hitbox.hitTestObject(tog.coalBox) && Input.space) {
@@ -465,8 +477,8 @@
 				if (panda.hitbox.hitTestObject(tog.sink) && Input.space && holdItem == "wash") {
 					holdItem = null
 				}
-				
-				
+
+
 
 			}
 			//objects
@@ -477,13 +489,19 @@
 			// same for all frames
 
 			//layer 3
-			for (var j: int = 0; j < carts.length; j++) {
-				if (!carts[j].hitTestObject(panda.hitbox)) {
-					fadeIn(tog.t3);
-				} else {
-					fadeOut(tog.t3);
+			if (isInside()) {
+				if (outside) {
+					doInside();
 				}
+				outside = false;
+			} else {
+				if (!outside) {
+					doOutside();
+				}
+				outside = true;
 			}
+
+
 
 			if (carts[0].hitTestObject(panda.hitbox) || carts[4].hitTestObject(panda.hitbox)) {
 				loco = true;
@@ -509,8 +527,10 @@
 						inner = false;
 						fadeIn(tog.t2);
 						fadeIn(tog.t2a);
+						doInside();
 					} else if (Input.up && !inner) {
 						doors[i].ani.gotoAndPlay(2);
+						doCabin();
 						inner = true;
 						fadeOut(tog.t2);
 						fadeOut(tog.t2a);
@@ -602,7 +622,6 @@
 					break;
 				case 2:
 					waffleMission = 3;
-					waffleSuccess = false;
 					holdItem = "plate";
 					break;
 				case 3:
@@ -610,8 +629,6 @@
 					break;
 			}
 		}
-
-
 
 		function depthOrder(): void {
 			tog.addChild(tog.t2);
@@ -622,20 +639,10 @@
 			doorDepth2 = tog.getChildIndex(tog.door1);
 			inner = false;
 		}
-		override function fadeIn(mc: MovieClip): void {
-			TweenLite.to(mc, 1, {
-				alpha: 1
-			});
-		}
 
-		override function fadeOut(mc: MovieClip): void {
-			TweenLite.to(mc, 1, {
-				alpha: -5
-			});
-		}
-		function bgTree(amount: int): void {
+		function bgTree(): void {
 			var treex: int = 1500;
-			for (var i: int = 0; i < amount; i++) {
+			for (var i: int = 0; i < treeAmount; i++) {
 				var tree: Tree = new Tree;
 				addChild(tree);
 				trees.push(tree);
@@ -645,7 +652,6 @@
 				tree.y = 300;
 				treex += 300 + Math.floor(Math.random() * 80);
 			}
-
 		}
 		function next(victim: int): void {
 			depthOrder();
@@ -676,7 +682,34 @@
 			inGame = true;
 			Main.pauseGame();
 		}
-
+		function isInside(): Boolean {
+			var isit: Boolean = false;
+			for (var j: int = 0; j < carts.length; j++) {
+				if (carts[j].hitTestObject(panda.hitbox)) {
+					isit = true;
+					break;
+				}
+			}
+			return isit;
+		}
+		function doOutside(): void {
+			fadeIn(tog.t3);
+			Mixer.play.train(2);
+		}
+		function doInside(): void {
+			fadeOut(tog.t3);
+			Mixer.play.train(1);
+		}
+		function doCabin(): void {
+			Mixer.play.train(3);
+		}
+		function treeChange(frame: int): void {
+			if (trees.length > 0) {
+				for (var j: int = 0; j < trees.length; j++) {
+					trees[j].change(frame);
+				}
+			}
+		}
 
 		function treeMove(): void {
 			if (trees.length > 0) {
@@ -687,7 +720,7 @@
 					}
 				}
 			}
-		}//end treeMove
+		} //end treeMove
 
 	}
 }

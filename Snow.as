@@ -1,9 +1,12 @@
 ﻿package {
-	import flash.display.MovieClip import flash.events.Event;
+	
+	import flash.display.MovieClip;
+	import flash.events.Event;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	
 	public class Snow extends MovieClip {
-		private var flakesVector: Vector. < MovieClip > = new Vector. < MovieClip > ();
+		private var flakesVector: Vector.<MovieClip> = new Vector.< MovieClip>();
 		private var timer: Timer = new Timer(2000);
 		var change: Boolean = true;
 		public function Snow(speed: int = 3, flakesNumber = 200, adjust: Boolean = true): void {

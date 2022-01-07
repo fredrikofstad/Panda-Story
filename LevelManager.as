@@ -20,12 +20,9 @@
 		private var lvl2: Level2;
 		private var lvl2e: Level2Extra;
 		private var train: Train; //level3
-		private var lvl4s: Level4Station;
 		private var lvl4: Level4;
+		private var lvl4e: Level4Extra;
 		private var lv5: Level5;
-
-
-		private var trainDone: Boolean = false;
 
 
 		public function LevelManager() {
@@ -95,19 +92,12 @@
 			}
 		}
 		public function changeStage(lvl: int, extra: int = 0): void {
-			trace("start of changeStage");
 			if (loadedLevel) {
 				loadedLevel.removeChildren();
 				removeChild(loadedLevel);
 				loadedLevel = null;
 			}
-			Main.panda.makeSafe(true);
-			Main.panda.normal();
-			Main.panda.resume();
-			Main.panda.positions(200, 400);
-			positions(0, 0);
-			Main.fg.change("empty");
-			snowing = false;
+			defaultValues();
 			currentStage = lvl;
 			switch (lvl) {
 				case 0:
@@ -157,24 +147,24 @@
 					positions(0, 0);
 					break;
 				case 4:
-					Main.panda.resume();
-					Main.panda.visible = true;
 					lvl4 = new Level4;
 					loadedLevel = lvl4;
 					addChild(lvl4);
 					snowing = true;
+					Mixer.play.BG(6);
 					Main.para.change("snow");
 					Main.bg.change("morning");
 					Main.snowing.visible = true;
-					Main.panda.positions(100, 500);
-					positions(0, 0);
+					Main.panda.positions(450, 500);
+					positions(-800, 0);
 					break;
 				case 5:
-					Main.panda.halt();
-					Main.panda.visible = false;
-					train = new Train(trainDone);
+					train = new Train(Progression.flag.trainDone);
 					loadedLevel = train;
 					addChild(train);
+					Main.panda.halt();
+					Main.panda.visible = false;
+					Mixer.play.BG(3);
 					break;
 				case 7:
 					lv5 = new Level5;
@@ -182,9 +172,28 @@
 					addChild(lv5);
 					Main.para.change("luna");
 					Main.bg.change("morning");
-					
 					break;
+				case 8:
+					lvl4e = new Level4Extra(true);
+					loadedLevel = lvl4e;
+					addChild(lvl4e);
+					Main.panda.positions(400, 520);
+					positions(-1000, 0);
+					Mixer.play.BG(6);
+					Main.bg.change("morning");
+					Main.para.change("snow");
 			}
+		}
+		private function defaultValues():void {
+			Main.panda.makeSafe(true);
+			Main.panda.resume();
+			Main.panda.visible = true;
+			Main.panda.riding = false;
+			Main.panda.normal();
+			Main.panda.positions(200, 400);
+			positions(0, 0);
+			Main.fg.change("empty");
+			snowing = false;
 		}
 		public function positions(_x: int, _y: int): void {
 			this.x = _x;
