@@ -41,11 +41,13 @@
 				} else {
 					if (Main.u.talk.getSignal == 2) {
 						asakoForgive = true;
+						Progression.flag.asakoForgive = true;
 						order++;
 						asking = false;
 						Main.u.talk.reset();
 					} else if (Main.u.talk.getSignal == 1) {
 						asakoForgive = false;
+						Progression.flag.asakoForgive = false;
 						order++;
 						asking = false;
 						Main.u.talk.reset();
@@ -89,7 +91,7 @@
 							"But if you really think about it, aren't we all the murderers?",
 							"We threw innocent people off the train!", "You get what I'm saying, right?"
 						],
-						"Asako");
+						"Asako",false);
 					order++;
 					break;
 				case 3:
@@ -102,11 +104,13 @@
 					} else {
 						talk(["!!!", "Ouch! That bamboo hurt!", "...", "Whatever, seems we're about to arrive..."], "Asako", false);
 						panda.gotoAndPlay("attack");
+						Mixer.play.FX("die");
 					}
 					order++;
 					break;
 				case 5:
 					talk(["See you around, Panda."], "Asako", false);
+					order++;
 					break;
 				case 6:
 					talkPhase = false;

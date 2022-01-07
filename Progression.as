@@ -11,6 +11,9 @@
 		public var ticket: int = 0;
 		public var skateUnlocked: Boolean = false;
 		public var toilclear: Boolean = false;
+		//Level 3
+		public var trainDone: Boolean = false;
+		public var asakoForgive: Boolean = false;
 		
 		
 		
@@ -24,6 +27,8 @@
 			so.data.ticket = ticket;
 			so.data.skateUnlocked = skateUnlocked;
 			so.data.toilclear = toilclear;
+			so.data.trainDone = trainDone;
+			so.data.asakoForgive = asakoForgive;
 			so.data.currentStage = Main.level.getStage;
 		}
 		public function loadGame():void{
@@ -31,6 +36,8 @@
 			ticket = so.data.ticket;
 			skateUnlocked = so.data.skateUnlocked;
 			toilclear = so.data.toilclear;
+			trainDone = so.data.trainDone;
+			asakoForgive = so.data.asakoForgive;
 			ticket = so.data.ticket;
 		}
 		public static function get flag():Progression {

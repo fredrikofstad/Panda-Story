@@ -291,6 +291,7 @@
 			pushing = false;
 			attacking = false;
 			getItem = null;
+			canJump(true);
 			_state = "normal";
 		}
 		public function reset(): void {

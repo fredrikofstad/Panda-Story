@@ -46,6 +46,7 @@
 				} else if (Main.u.talk.getSignal == 1) {
 					asking = false;
 					Main.u.talk.reset();
+					trace("no");
 				}
 			}
 			if (giving) {
@@ -108,6 +109,13 @@
 		
 		public function ask(body: Array, yes: String = "Yes", no: String = "No") {
 			if (touch && !asking) {
+				Main.u.talk.ask(body, yes, no);
+				asking = true;
+			}
+
+		}
+		public function ask2(body: Array, yes: String = "Yes", no: String = "No") {
+			if (!asking) {
 				Main.u.talk.ask(body, yes, no);
 				asking = true;
 			}

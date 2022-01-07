@@ -80,6 +80,7 @@
 		function dostart2(): void {
 			//maybe initialize?
 			changeScreens("intro");
+			Mixer.play.BG(0);
 			Mouse.show();
 		}
 		function doload(e: MouseEvent): void {

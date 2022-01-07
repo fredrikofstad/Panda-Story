@@ -8,9 +8,12 @@
 
 	public class Mixer {
 		//BG music
-		var main: Sound = new Theme();
+		var intro: Sound = new Intro();
 		var zoo: Sound = new Zoo();
 		var pixels: Sound = new Pixels();
+		var train1: Sound = new Train1();
+		var train2: Sound = new Train2();
+		var train3: Sound = new Train3();
 		var winter: Sound = new Winter();
 		//blank
 		var nosound: Sound = new blank();
@@ -30,14 +33,13 @@
 		var fx: SoundChannel = new SoundChannel();
 		var bg: SoundChannel = new SoundChannel();
 		var soundPosition: int;
-		var songList:Array = [main,zoo,pixels,winter];
+		var songList:Array = [intro,zoo,pixels, train1, train2, train3, winter];
 		var currentSong:int = 0;
 		var muted:Boolean = false;
 
 		public function Mixer() {
 			_play = this;
 			nosound.play(0, 999);
-			resume();
 		}
 		public function pause(): void {
 			soundPosition = bg.position;
@@ -68,6 +70,18 @@
 			bg.stop();
 			currentSong = current;
 			soundPosition = 0;
+			resume();
+		}
+		public function train(change:int): void {
+			soundPosition = bg.position;
+			bg.stop();
+			if(change == 1){
+				currentSong = 3;
+			} else if (change == 2) {
+				currentSong = 4;
+			} else {
+				currentSong = 5;
+			}
 			resume();
 		}
 		public function FX(sound: String): void {
