@@ -298,6 +298,9 @@
 			_hp = 6;
 			_life = 3;
 		}
+		public function changeClothes(clothes: String){
+			_clothes = clothes;
+		}
 		public function canJump(activate: Boolean = true): void {
 			if (activate) {
 				jump = true;

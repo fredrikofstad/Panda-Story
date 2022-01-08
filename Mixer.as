@@ -67,7 +67,7 @@
 			return _play;
 		}
 		public function BG(current:int): void {
-			if(current == curentSong){
+			if(current == currentSong){
 				return;
 			}
 			bg.stop();

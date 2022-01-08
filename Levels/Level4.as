@@ -11,8 +11,8 @@
 		}
 		override function loopCode(): void {
 			//doors
-			doorStation.enter(8);
-			doorCabin.enter(8);
+			doorStation.enter(8,1);
+			doorCabin.enter(8,2);
 		}
 		
 	}

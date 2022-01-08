@@ -51,7 +51,6 @@
 			}
 		}
 
-
 		function collisions(): void {
 			if (loadedLevel.ground.hitTestPoint(player.x, player.y + 3, true)) {
 				player.downBumping = true;
@@ -155,6 +154,7 @@
 					Main.para.change("snow");
 					Main.bg.change("morning");
 					Main.snowing.visible = true;
+					Main.panda.changeClothes("winter");
 					Main.panda.positions(450, 500);
 					positions(-800, 0);
 					break;
@@ -174,23 +174,36 @@
 					Main.bg.change("morning");
 					break;
 				case 8: // winterland cabin and station
-					lvl4e = new Level4Extra(true);
+					if (extra == 1) {
+						lvl4e = new Level4Extra(false);
+						Main.panda.positions(400, 520);
+						positions(-1000, 0);
+					}
+					if (extra == 2) {
+						lvl4e = new Level4Extra(false);
+						Main.panda.positions(400, 520);
+						positions(-1000, 0);
+					} else {
+						lvl4e = new Level4Extra(true);
+						Main.panda.positions(400, 520);
+						positions(-1000, 0);
+					}
+					Main.panda.changeClothes("winter");
 					loadedLevel = lvl4e;
 					addChild(lvl4e);
-					Main.panda.positions(400, 520);
-					positions(-1000, 0);
 					Mixer.play.BG(6);
 					Main.bg.change("morning");
 					Main.para.change("snow");
 			}
 		}
-		private function defaultValues():void {
+		private function defaultValues(): void {
 			Main.panda.makeSafe(true);
 			Main.panda.resume();
 			Main.panda.visible = true;
 			Main.panda.riding = false;
 			Main.panda.normal();
 			Main.panda.positions(200, 400);
+			Main.panda.changeClothes("normal");
 			positions(0, 0);
 			Main.fg.change("empty");
 			snowing = false;

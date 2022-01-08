@@ -1,25 +1,19 @@
 ﻿package Levels {
-	
+
 	import flash.display.MovieClip;
-	
-	
+
 	public class Level4Extra extends LevelClass {
-		
-		
-		public function Level4Extra(fromTrain:Boolean = false) {
-			if(fromTrain){
+		public function Level4Extra(fromTrain: Boolean = false) {
+			if (fromTrain) {
 				Main.panda.visible = false;
 				Main.panda.halt();
 				train.gotoAndPlay(2);
 			}
 		}
 		override function loopCode(): void {
+			//door
 			door.enter(4);
-			if(train.currentLabel == "leave"){
-				trace("now");
-				
-				
-			}
+			//train
 			if (train.currentLabel == "arrive") {
 				Main.u.transition();
 				Main.panda.visible = true;
@@ -32,13 +26,13 @@
 					train.gotoAndPlay("panda");
 				}
 			}
-			if(player.hitTestObject(stationWall)){
+			if (player.hitTestObject(stationWall)) {
 				fadeOut(stationWall);
 			} else {
 				fadeIn(stationWall);
 			}
 		}
-		
+
 	}
-	
+
 }
