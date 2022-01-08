@@ -182,7 +182,7 @@
 					}
 					else if (extra == 2) { //cabin
 						lvl4e = new Level4Extra(false);
-						Main.panda.positions(400, 520);
+						Main.panda.positions(400, 540);
 						positions(-3000, 0);
 					} else {
 						lvl4e = new Level4Extra(true);
