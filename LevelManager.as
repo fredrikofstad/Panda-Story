@@ -40,6 +40,7 @@
 		}
 
 		function loop(e: Event) {
+			trace(x,y);
 			player = Main.panda;
 			if (!player.isHalt && loadedLevel != null) {
 				collisions();
@@ -174,12 +175,12 @@
 					Main.bg.change("morning");
 					break;
 				case 8: // winterland cabin and station
-					if (extra == 1) {
+					if (extra == 1) { //station
 						lvl4e = new Level4Extra(false);
-						Main.panda.positions(400, 520);
-						positions(-1000, 0);
+						Main.panda.positions(1000, 540);
+						positions(-2074, 0);
 					}
-					if (extra == 2) {
+					else if (extra == 2) { //cabin
 						lvl4e = new Level4Extra(false);
 						Main.panda.positions(400, 520);
 						positions(-1000, 0);
