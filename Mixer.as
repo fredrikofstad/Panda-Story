@@ -67,6 +67,9 @@
 			return _play;
 		}
 		public function BG(current:int): void {
+			if(current == curentSong){
+				return;
+			}
 			bg.stop();
 			currentSong = current;
 			soundPosition = 0;
