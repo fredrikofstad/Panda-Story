@@ -100,7 +100,7 @@
 			defaultValues();
 			currentStage = lvl;
 			switch (lvl) {
-				case 0:
+				case 0: //zoo dawn
 					trace("level 0 loaded");
 					lvl1 = new Level1(true);
 					loadedLevel = lvl1;
@@ -109,7 +109,7 @@
 					Main.bg.change("dawn");
 					Main.panda.positions(300, 520);
 					break;
-				case 1:
+				case 1: //zoo morning
 					lvl1 = new Level1;
 					loadedLevel = lvl1;
 					addChild(lvl1);
@@ -122,7 +122,7 @@
 					}
 					break;
 				case 2:
-					lvl2 = new Level2;
+					lvl2 = new Level2; //bar
 					loadedLevel = lvl2;
 					addChild(lvl2);
 					Main.para.change("night");
@@ -139,14 +139,14 @@
 						Main.panda.positions(100, 520);
 					}
 					break;
-				case 6:
+				case 6: //osaki house
 					lvl2e = new Level2Extra;
 					loadedLevel = lvl2e;
 					addChild(lvl2e);
 					Main.panda.positions(100, 500);
 					positions(0, 0);
 					break;
-				case 4:
+				case 4: // winterland
 					lvl4 = new Level4;
 					loadedLevel = lvl4;
 					addChild(lvl4);
@@ -158,7 +158,7 @@
 					Main.panda.positions(450, 500);
 					positions(-800, 0);
 					break;
-				case 5:
+				case 5: //train
 					train = new Train(Progression.flag.trainDone);
 					loadedLevel = train;
 					addChild(train);
@@ -166,14 +166,14 @@
 					Main.panda.visible = false;
 					Mixer.play.BG(3);
 					break;
-				case 7:
+				case 7: // mount luna
 					lv5 = new Level5;
 					loadedLevel = lv5;
 					addChild(lv5);
 					Main.para.change("luna");
 					Main.bg.change("morning");
 					break;
-				case 8:
+				case 8: // winterland cabin and station
 					lvl4e = new Level4Extra(true);
 					loadedLevel = lvl4e;
 					addChild(lvl4e);
