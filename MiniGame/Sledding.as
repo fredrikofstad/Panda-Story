@@ -19,7 +19,6 @@
 		var scoreC: Number = 0;
 		var lost: Boolean = true;
 		var start: Boolean = true;
-		var hurt: hurtsound = new hurtsound();
 		//var t: Touch = new Touch;
 
 		public function Sledding() {
@@ -35,55 +34,10 @@
 
 		}
 		function update(e: Event): void {
-			if (scoreC <= 2500) {
-				sky.gotoAndStop("day")
-				score.textColor = 0x000000;
-				highscore.textColor = 0x000000;
-				info.textColor = 0x000000;
-			} else if (scoreC > 2500 && scoreC < 4000) {
-				sky.gotoAndStop("sunset");
-			} else {
-				sky.gotoAndStop("night");
-				score.textColor = 0xFFFFFF;
-				highscore.textColor = 0xFFFFFF;
-				info.textColor = 0xFFFFFF;
-			}
-
-			if (lost) {
-				if (start) {
-					bar.gotoAndStop("start");
-					if (Input.space) {
-						start = true;
-						lost = true;
-						removeSelf();
-					}
-				} else {
-					bar.gotoAndStop("lost");
-					if (Input.up) {
-						restart();
-					} else if (Main.transfer) {
-						start = true;
-						lost = true;
-						removeSelf();
-					}
-				}
-			} else {
-				bar.gotoAndStop("alive");
-			}
-
-			if (start) {
-				if (Main.upPressed) {
-					start = false;
-					lost = false;
-					restart();
-
-				}
-			}
-
-			score.text = String(scoreC);
-			highscore.text = String(Main.sledscore);
-
+			changeBG();
+			updateUI();
 			sledTree();
+
 
 			if (!lost) {
 				sledHP.gotoAndStop(HP);
@@ -116,7 +70,7 @@
 					for (var j: int = 0; j < rockList.length; j++) {
 						if (sled.hitbox.hitTestObject(rockList[j]) && !isInvincible) {
 							HP -= 2;
-							hurt.play();
+							Mixer.play.FX("hurt");
 							invincibilityTimeLeft = invicounter;
 							isInvincible = true;
 						}
@@ -130,7 +84,7 @@
 					rockSpawnTimeLeft = 30 + Math.floor(Math.random() * 30);
 				}
 
-				if (Main.upPressed && !jumping) {
+				if (Input.up && !jumping) {
 					jumping = true;
 					velocity = 25;
 					direction = -1;
@@ -140,6 +94,58 @@
 				}
 			}
 
+		}
+		
+		function changeBG(): void {
+			if (scoreC <= 2500) {
+				sky.gotoAndStop("day")
+				score.textColor = 0x000000;
+				highscore.textColor = 0x000000;
+				info.textColor = 0x000000;
+			} else if (scoreC > 2500 && scoreC < 4000) {
+				sky.gotoAndStop("sunset");
+			} else {
+				sky.gotoAndStop("night");
+				score.textColor = 0xFFFFFF;
+				highscore.textColor = 0xFFFFFF;
+				info.textColor = 0xFFFFFF;
+			}
+		}
+		
+		function updateUI(): void {
+			score.text = String(scoreC);
+			highscore.text = String(Main.sledscore);
+			
+			if (lost) {
+				if (start) {
+					bar.gotoAndStop("start");
+					if (Input.space) {
+						start = true;
+						lost = true;
+						removeSelf();
+					}
+				} else {
+					bar.gotoAndStop("lost");
+					if (Input.up) {
+						restart();
+					} else if (Input.space) {
+						start = true;
+						lost = true;
+						removeSelf();
+					}
+				}
+			} else {
+				bar.gotoAndStop("alive");
+			}
+			
+			if (start) {
+				if (Input.up) {
+					start = false;
+					lost = false;
+					restart();
+
+				}
+			}
 		}
 
 		function sledTree(): void {

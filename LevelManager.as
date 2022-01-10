@@ -14,15 +14,7 @@
 		private var _startY: int = 550;
 		private var currentStage = 1;
 		private var snowing: Boolean = false;
-
 		private var loadedLevel = null;
-		private var lvl1: Level1;
-		private var lvl2: Level2;
-		private var lvl2e: Level2Extra;
-		private var train: Train; //level3
-		private var lvl4: Level4;
-		private var lvl4e: Level4Extra;
-		private var lv5: Level5;
 
 
 		public function LevelManager() {
@@ -91,28 +83,28 @@
 				player.upBumping = false;
 			}
 		}
+		
 		public function changeStage(lvl: int, extra: int = 0): void {
+			//unload level if stored
 			if (loadedLevel) {
 				loadedLevel.removeChildren();
 				removeChild(loadedLevel);
 				loadedLevel = null;
 			}
+			//change all values to default
 			defaultValues();
 			currentStage = lvl;
+			//change settings based on level
+			//consider altering this in level classes
 			switch (lvl) {
 				case 0: //zoo dawn
-					trace("level 0 loaded");
-					lvl1 = new Level1(true);
-					loadedLevel = lvl1;
-					addChild(lvl1);
+					loadedLevel = new Level1(true);
 					Main.para.change("zoo");
 					Main.bg.change("dawn");
 					Main.panda.positions(300, 520);
 					break;
 				case 1: //zoo morning
-					lvl1 = new Level1;
-					loadedLevel = lvl1;
-					addChild(lvl1);
+					loadedLevel = new Level1;
 					Main.para.change("zoo");
 					Main.bg.change("morning");
 					Mixer.play.BG(1);
@@ -121,10 +113,8 @@
 						positions(-6800, 0);
 					}
 					break;
-				case 2:
-					lvl2 = new Level2; //bar
-					loadedLevel = lvl2;
-					addChild(lvl2);
+				case 2: //bar
+					loadedLevel = new Level2;
 					Main.para.change("night");
 					Main.bg.change("night");
 					Main.fg.change("downtown");
@@ -140,16 +130,12 @@
 					}
 					break;
 				case 6: //osaki house
-					lvl2e = new Level2Extra;
-					loadedLevel = lvl2e;
-					addChild(lvl2e);
+					loadedLevel = new Level2Extra;
 					Main.panda.positions(100, 500);
 					positions(0, 0);
 					break;
 				case 4: // winterland
-					lvl4 = new Level4;
-					loadedLevel = lvl4;
-					addChild(lvl4);
+					loadedLevel = new Level4;
 					snowing = true;
 					Mixer.play.BG(6);
 					Main.para.change("snow");
@@ -160,42 +146,37 @@
 					positions(-800, 0);
 					break;
 				case 5: //train
-					train = new Train(Progression.flag.trainDone);
-					loadedLevel = train;
-					addChild(train);
+					loadedLevel = new Train(Progression.flag.trainDone);
 					Main.panda.halt();
 					Main.panda.visible = false;
 					Mixer.play.BG(3);
 					break;
 				case 7: // mount luna
-					lv5 = new Level5;
-					loadedLevel = lv5;
-					addChild(lv5);
+					loadedLevel = new Level5;
 					Main.para.change("luna");
 					Main.bg.change("morning");
 					break;
 				case 8: // winterland cabin and station
 					if (extra == 1) { //station
-						lvl4e = new Level4Extra(false);
+						loadedLevel = new Level4Extra(false);
 						Main.panda.positions(1000, 540);
 						positions(-2074, 0);
 					}
 					else if (extra == 2) { //cabin
-						lvl4e = new Level4Extra(false);
+						loadedLevel = new Level4Extra(false);
 						Main.panda.positions(400, 540);
 						positions(-4020, 0);
 					} else {
-						lvl4e = new Level4Extra(true);
+						loadedLevel = new Level4Extra(true);
 						Main.panda.positions(400, 520);
 						positions(-1000, 0);
 					}
 					Main.panda.changeClothes("winter");
-					loadedLevel = lvl4e;
-					addChild(lvl4e);
 					Mixer.play.BG(6);
 					Main.bg.change("morning");
 					Main.para.change("snow");
 			}
+			addChild(loadedLevel);
 		}
 		private function defaultValues(): void {
 			Main.panda.makeSafe(true);
