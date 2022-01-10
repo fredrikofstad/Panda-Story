@@ -6,13 +6,13 @@
 	public class Input extends Sprite{
 		
 		private static var leftPressed: Boolean = false;
-		static var rightPressed: Boolean = false;
-		static var upPressed: Boolean = false;
-		static var downPressed: Boolean = false;
-		static var spacePressed: Boolean = false;
-		static var enterPressed: Boolean = false;
-		static var mPressed: Boolean = false;
-		static var iPressed: Boolean = false;
+		private static var rightPressed: Boolean = false;
+		private static var upPressed: Boolean = false;
+		private static var downPressed: Boolean = false;
+		private static var spacePressed: Boolean = false;
+		private static var enterPressed: Boolean = false;
+		private static var mPressed: Boolean = false;
+		private static var iPressed: Boolean = false;
 
 		public function Input() {
 			addEventListener(Event.ADDED_TO_STAGE, start);
