@@ -34,7 +34,7 @@
 		var bg: SoundChannel = new SoundChannel();
 		var soundPosition: int;
 		var songList:Array = [intro,zoo,pixels, train1, train2, train3, winter];
-		var currentSong:int = 0;
+		var currentSong:int = -1;
 		var muted:Boolean = false;
 
 		public function Mixer() {

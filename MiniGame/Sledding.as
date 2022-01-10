@@ -23,20 +23,21 @@
 		var snow2: Snow = new Snow(3, 200, false);
 		
 		var m = MovieClip(root);
-		var t: Touch = new Touch;
+		//var t: Touch = new Touch;
 
 		public function Sledding() {
 			// constructor code
-			addEventListener(Event.ENTER_FRAME, upDate);
+			addEventListener(Event.ENTER_FRAME, update);
 			addChild(snow2);
-			addChild(t);
+			/*addChild(t);
 			t.hu.addEventListener(TouchEvent.TOUCH_BEGIN, dohu);
 			t.hs.addEventListener(TouchEvent.TOUCH_BEGIN, dohs);
+			*/
 			HP = 6;
 
 
 		}
-		function upDate(e: Event): void {
+		function update(e: Event): void {
 			if (scoreC <= 2500) {
 				sky.gotoAndStop("day")
 				score.textColor = 0x000000;
