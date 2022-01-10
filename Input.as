@@ -5,7 +5,7 @@
 	
 	public class Input extends Sprite{
 		
-		static var leftPressed: Boolean = false;
+		private static var leftPressed: Boolean = false;
 		static var rightPressed: Boolean = false;
 		static var upPressed: Boolean = false;
 		static var downPressed: Boolean = false;

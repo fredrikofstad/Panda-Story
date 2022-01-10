@@ -20,20 +20,17 @@
 		var lost: Boolean = true;
 		var start: Boolean = true;
 		var hurt: hurtsound = new hurtsound();
-		var snow2: Snow = new Snow(3, 200, false);
-		
-		var m = MovieClip(root);
 		//var t: Touch = new Touch;
 
 		public function Sledding() {
-			// constructor code
 			addEventListener(Event.ENTER_FRAME, update);
-			addChild(snow2);
+			Main.snowing.visible = true;
+			HP = 6;
+			/// touch support ///
 			/*addChild(t);
 			t.hu.addEventListener(TouchEvent.TOUCH_BEGIN, dohu);
 			t.hs.addEventListener(TouchEvent.TOUCH_BEGIN, dohs);
 			*/
-			HP = 6;
 
 
 		}
@@ -55,14 +52,14 @@
 			if (lost) {
 				if (start) {
 					bar.gotoAndStop("start");
-					if (Main.transfer) {
+					if (Input.space) {
 						start = true;
 						lost = true;
 						removeSelf();
 					}
 				} else {
 					bar.gotoAndStop("lost");
-					if (Main.upPressed) {
+					if (Input.up) {
 						restart();
 					} else if (Main.transfer) {
 						start = true;
@@ -181,6 +178,8 @@
 				jumping = false;
 			}
 		}
+		///Touch control support///
+		/* 
 		function dohu(e: TouchEvent): void {
 			addEventListener(TouchEvent.TOUCH_END, endhu);
 			Main.upPressed = true;
@@ -199,7 +198,7 @@
 		function endhs(e: TouchEvent): void {
 			removeEventListener(TouchEvent.TOUCH_END, endhs);
 			m.spaceUp();
-		}
+		}*/
 
 		function restart(): void {
 			lost = false;
