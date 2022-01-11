@@ -213,8 +213,7 @@
 		}
 		public function removeSelf(): void {
 			removeEventListener(Event.ENTER_FRAME, upDate);
-			MovieClip(root).sledding = false;
-			MovieClip(root).paused = false;
+			//give back controls
 			this.parent.removeChild(this);
 		}
 	}
