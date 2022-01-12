@@ -114,7 +114,7 @@
 		
 		function updateUI(): void {
 			score.text = String(scoreC);
-			highscore.text = String(Main.sledscore);
+			highscore.text = String("highscore"); //get score from save file
 			
 			if (lost) {
 				if (start) {

@@ -3,6 +3,9 @@
 	import flash.display.MovieClip;
 
 	public class Level4Extra extends LevelClass {
+		
+		var sledGame: Sledding = new Sledding;
+		
 		public function Level4Extra(fromTrain: Boolean = false) {
 			if (fromTrain) {
 				Main.panda.visible = false;
@@ -11,6 +14,11 @@
 			}
 		}
 		override function loopCode(): void {
+			station();
+			cabin();
+		}
+		
+		function station():void{
 			//door
 			door.enter(4);
 			//train
@@ -30,6 +38,13 @@
 				fadeOut(stationWall);
 			} else {
 				fadeIn(stationWall);
+			}
+		}
+		function cabin():void{
+			//doors
+			if(door3.hitbox.hitTestObject(player.hitbox)){
+				addChild(sledGame);
+				//disable and relocate panda
 			}
 		}
 
