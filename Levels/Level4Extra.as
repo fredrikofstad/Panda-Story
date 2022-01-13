@@ -4,7 +4,8 @@
 
 	public class Level4Extra extends LevelClass {
 		
-		var sledGame: Sledding = new Sledding;
+		var sledGame: Sledding;
+		var inGame: Boolean;
 		
 		public function Level4Extra(fromTrain: Boolean = false) {
 			if (fromTrain) {
@@ -25,7 +26,7 @@
 			if (train.currentLabel == "arrive") {
 				Main.u.transition();
 				Main.panda.visible = true;
-				Main.panda.resume();
+				Main.panda.resume();				
 				train.gotoAndPlay("leave");
 				Progression.flag.trainDone = true;
 			}
@@ -42,8 +43,11 @@
 		}
 		function cabin():void{
 			//doors
-			if(door3.hitbox.hitTestObject(player.hitbox)){
-				addChild(sledGame);
+			if(!inGame && door3.hitbox.hitTestObject(player.hitbox)){
+				sledGame = new Sledding;
+				parent.addChild(sledGame);
+				inGame = true;
+				trace("sled game");
 				//disable and relocate panda
 			}
 		}

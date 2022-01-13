@@ -32,7 +32,6 @@
 		}
 
 		function loop(e: Event) {
-			trace(x,y);
 			player = Main.panda;
 			if (!player.isHalt && loadedLevel != null) {
 				collisions();
