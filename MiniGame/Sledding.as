@@ -1,4 +1,4 @@
-﻿package {
+﻿package MiniGame {
 
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -17,6 +17,7 @@
 		var invicounter: Number = 20;
 		var isInvincible: Boolean = false;
 		var scoreC: Number = 0;
+		var sledScore: Number = 0; //make this in progression
 		var lost: Boolean = true;
 		var start: Boolean = true;
 		//var t: Touch = new Touch;
@@ -25,13 +26,12 @@
 			addEventListener(Event.ENTER_FRAME, update);
 			Main.snowing.visible = true;
 			HP = 6;
+			
 			/// touch support ///
 			/*addChild(t);
 			t.hu.addEventListener(TouchEvent.TOUCH_BEGIN, dohu);
 			t.hs.addEventListener(TouchEvent.TOUCH_BEGIN, dohs);
 			*/
-
-
 		}
 		function update(e: Event): void {
 			changeBG();
@@ -42,8 +42,8 @@
 			if (!lost) {
 				sledHP.gotoAndStop(HP);
 			} else {
-				if (Main.sledscore < scoreC) {
-					Main.sledscore = scoreC;
+				if (sledScore < scoreC) {
+					sledScore = scoreC;
 				}
 				sledHP.gotoAndStop("lost");
 			}
@@ -76,7 +76,6 @@
 						}
 					}
 				}
-
 
 				rockSpawnTimeLeft--;
 				if (rockSpawnTimeLeft < 1) {
@@ -212,8 +211,8 @@
 			scoreC = 0;
 		}
 		public function removeSelf(): void {
-			removeEventListener(Event.ENTER_FRAME, upDate);
-			//give back controls
+			removeEventListener(Event.ENTER_FRAME, update);
+			Main.unpauseGame();
 			this.parent.removeChild(this);
 		}
 	}

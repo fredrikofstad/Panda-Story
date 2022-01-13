@@ -36,11 +36,6 @@
 			if (!player.isHalt && loadedLevel != null) {
 				collisions();
 			}
-			if (snowing) {
-				Main.snowing.visible = true;
-			} else {
-				Main.snowing.visible = false;
-			}
 		}
 
 		function collisions(): void {
@@ -135,7 +130,6 @@
 					break;
 				case 4: // winterland
 					loadedLevel = new Level4;
-					snowing = true;
 					Mixer.play.BG(6);
 					Main.para.change("snow");
 					Main.bg.change("morning");
@@ -187,7 +181,7 @@
 			Main.panda.changeClothes("normal");
 			positions(0, 0);
 			Main.fg.change("empty");
-			snowing = false;
+			Main.snowing.visible = false;
 		}
 		public function positions(_x: int, _y: int): void {
 			this.x = _x;

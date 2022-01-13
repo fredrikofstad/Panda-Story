@@ -65,6 +65,11 @@
 		public static function unpauseGame(): void {
 			paused = false;
 		}
+		public function cutscene(setBool: Boolean): void {
+			paused = setBool;
+			ui.visible = !setBool;
+			player.visible = !setBool;
+		}
 
 
 	}

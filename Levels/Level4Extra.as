@@ -1,6 +1,8 @@
 ﻿package Levels {
 
 	import flash.display.MovieClip;
+	import flash.geom.Point;
+	import MiniGame.Sledding;
 
 	public class Level4Extra extends LevelClass {
 		
@@ -45,10 +47,13 @@
 			//doors
 			if(!inGame && door3.hitbox.hitTestObject(player.hitbox)){
 				sledGame = new Sledding;
-				parent.addChild(sledGame);
+				addChild(sledGame);
+				var localPoint:Point = sledGame.parent.globalToLocal(new Point(0,0));
+				sledGame.x = localPoint.x;
+				sledGame.y = localPoint.y;
 				inGame = true;
-				trace("sled game");
-				//disable and relocate panda
+				Main.instance.cutscene(true);
+				//relocate panda
 			}
 		}
 
