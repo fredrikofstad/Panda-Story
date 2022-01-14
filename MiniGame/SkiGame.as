@@ -1,9 +1,10 @@
-﻿package {
+﻿package MiniGame {
 
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.*;
+	import Objects.Rock;
 
 	public class SkiGame extends MovieClip {
 		var rockList: Array = new Array();
@@ -16,7 +17,6 @@
 		var lost: Boolean = true;
 		var start: Boolean = true;
 		var hurt: hurtsound = new hurtsound();
-		var snow2: Snow = new Snow(3, 200, false);
 		var speed: int = 10;
 		var treeSpeed = 8;
 		var trees: Array = new Array();
@@ -37,7 +37,6 @@
 		var cabin: SkiCabin = new SkiCabin;
 
 		public function SkiGame() {
-			// constructor code
 			createGame();
 		}
 
@@ -47,7 +46,6 @@
 			bgTree(7);
 			addChild(cabin);
 			addChild(sign);
-			addChild(snow2);
 			addChild(layer1);
 			addChild(panda);
 			addChild(layer2);
@@ -131,7 +129,7 @@
 			//getting hurt
 			if (isInvincible) {
 				invincibilityTimeLeft--;
-				panda.gotoAndStop("invi");
+				panda.gotoAndStop("hurt");
 			} else{
 				panda.gotoAndStop("normal");
 			}

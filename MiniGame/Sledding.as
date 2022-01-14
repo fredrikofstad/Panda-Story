@@ -3,7 +3,7 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.*;
-
+	import Objects.Rock;
 
 	public class Sledding extends MovieClip {
 		var friction: Number = .75;
