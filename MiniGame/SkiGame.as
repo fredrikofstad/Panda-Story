@@ -84,16 +84,16 @@
 			}
 			km.text = String(kilo) + "km";
 			//panda
-			if (panda.y > 340 && Main.upPressed) {
+			if (panda.y > 340 && Input.up) {
 				panda.y -= speed;
 			}
-			if (panda.y < 600 && Main.downPressed) {
+			if (panda.y < 600 && Input.down) {
 				panda.y += speed;
 			}
-			if (panda.x > 200 && Main.leftPressed) {
+			if (panda.x > 200 && Input.left) {
 				panda.x -= speed;
 			}
-			if (panda.x < 1050 && Main.rightPressed) {
+			if (panda.x < 1050 && Input.right) {
 				panda.x += speed;
 			}
 			//intro
@@ -175,16 +175,16 @@
 		}
 
 		function bgTree(amount: int): void {
-			var treex: int = 1500;
-			var treey: int = 120;
+			var treeX: int = 1500;
+			var treeY: int = 120;
 			for (var i: int = 0; i < amount; i++) {
 				var tree: Tree = new Tree;
 				addChild(tree);
 				trees.push(tree);
 				tree.x = treex;
 				tree.y = treey
-				treex += 220 + Math.floor(Math.random() * 80);
-				treey += 5;
+				treeX += 220 + Math.floor(Math.random() * 80);
+				treeY += 5;
 			}
 
 		}
@@ -222,12 +222,8 @@
 			rockList.splice(rockList.indexOf(e.currentTarget), 1);
 		}
 
-
-
-
 		public function removeSelf(): void {
-			MovieClip(root).skiing = false;
-			MovieClip(root).cut = false;
+			//stuff when won or lost
 			
 			removeEventListener(Event.ENTER_FRAME, upDate);
 			this.parent.removeChild(this);
