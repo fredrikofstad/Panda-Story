@@ -48,6 +48,10 @@
 		private var _knockback: int = 10;
 		private var safe: Boolean = false;
 		private var safetyTimer: int = 0;
+		
+		public var levelSpeed: Number = 0;
+		public var bulletList: Array = new Array();
+		
 
 		//injects:
 		private var level: LevelManager;
@@ -129,6 +133,12 @@
 						_damage = false;
 					} else {
 						_damage = false;
+					}
+				} else if(_clothes == "winter" && _state == "attack"){ //TODO: check if can attack
+					if (char.attack.currentLabel == "attack") {
+						fireBullet();
+					} else if (char.attack.currentLabel == "attack_done") {
+						attacking = false;
 					}
 				}
 			}
@@ -223,17 +233,21 @@
 				player_y = 0;
 				player_xLeft = 0;
 				player_xRight = 0;
+				levelSpeed = 0;
 			}
 			//movement
 			if (x < 850) {
 				x += player_xRight;
 			} else {
 				level.x -= player_xRight;
+				levelSpeed = -player_xLeft;
 			}
 			if (x > 400) {
 				x -= player_xLeft;
 			} else {
 				level.x += player_xLeft;
+				levelSpeed = player_xLeft;
+				
 			}
 
 			if (y < 330 && !gControl) {
@@ -265,6 +279,16 @@
 
 			}
 
+		}
+		function fireBullet(): void {
+			var bullet: Bullet = new Bullet(x, y, _scale);
+			stage.addChild(bullet);
+			bulletList.push(bullet);
+			bullet.addEventListener(Event.REMOVED, bulletRemoved);
+		}
+		function bulletRemoved(e: Event): void {
+			e.currentTarget.removeEventListener(Event.REMOVED, bulletRemoved);
+			bulletList.splice(bulletList.indexOf(e.currentTarget), 1);
 		}
 		//mess with poor panda
 		public function hurt(): void {

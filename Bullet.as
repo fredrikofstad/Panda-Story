@@ -8,6 +8,7 @@
 		var gravity: Number = 1;
 		var maxGravity: int = 1
 		var initialY: int;
+		var levelSpeed: Number;
 
 		public function Bullet(playerX: int, playerY: int, playerScale: int) {
 			if (playerScale == 1) {
@@ -26,7 +27,7 @@
 				removeSelf();
 			}
 			gravity += 0.4;
-			x += speed;
+			x += speed + Main.panda.levelSpeed;
 			//y -= Main.player_y + bullet_y - gravity;
 			y -= bullet_y - gravity;
 			
