@@ -15,7 +15,7 @@
 
 		var leftLimit: int;
 		var rightLimit: int;
-		var maxDistance: int = 300;
+		var maxDistance: int = 800;
 
 
 		public function Snowball() {
