@@ -16,7 +16,6 @@
 		var scoreC: Number = 0;
 		var lost: Boolean = true;
 		var start: Boolean = true;
-		var hurt: hurtsound = new hurtsound();
 		var speed: int = 10;
 		var treeSpeed = 8;
 		var trees: Array = new Array();
@@ -28,12 +27,12 @@
 
 		var pdv: int;
 
-		public var background: Sprite = new Sprite();
-		public var layer1: Sprite = new Sprite();
-		public var layer2: Sprite = new Sprite();
-		public var layer3: Sprite = new Sprite();
-		public var layer4: Sprite = new Sprite();
-		public var sign: Skisign = new Skisign;
+		var background: Sprite = new Sprite();
+		var layer1: Sprite = new Sprite();
+		var layer2: Sprite = new Sprite();
+		var layer3: Sprite = new Sprite();
+		var layer4: Sprite = new Sprite();
+		var sign: Skisign = new Skisign;
 		var cabin: SkiCabin = new SkiCabin;
 
 		public function SkiGame() {
@@ -97,12 +96,13 @@
 				panda.x += speed;
 			}
 			//intro
-			sign.x -= treeSpeed;
 			if (contains(sign)) {
 				if (sign.x < -100 && sign) {
 					this.removeChild(sign);
 				}
+				sign.x -= treeSpeed;
 			}
+			
 			treeMove();
 			//obstacles
 			rockSpawnTimeLeft--;
@@ -110,8 +110,8 @@
 				sledRock()
 				rockSpawnTimeLeft = 10 + Math.floor(Math.random() * 30);
 			}
-
-
+			
+			//layer switching
 			if (panda.y < 350) {
 				addChildAt(panda, getChildIndex(layer1));
 			} else if (panda.y > 350 && panda.y < 425) {
@@ -169,6 +169,7 @@
 			//end of loop
 		}
 		function gotHit(): void {
+			Mixer.FX("hurt");
 			HP -= 1;
 			invincibilityTimeLeft = invicounter;
 			isInvincible = true;
