@@ -225,7 +225,8 @@
 
 		public function removeSelf(): void {
 			//stuff when won or lost
-			
+			Main.unpauseGame();
+			Main.panda.resume();
 			removeEventListener(Event.ENTER_FRAME, upDate);
 			this.parent.removeChild(this);
 		}

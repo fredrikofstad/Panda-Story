@@ -213,6 +213,7 @@
 		public function removeSelf(): void {
 			removeEventListener(Event.ENTER_FRAME, update);
 			Main.unpauseGame();
+			Main.panda.resume();
 			this.parent.removeChild(this);
 		}
 	}
