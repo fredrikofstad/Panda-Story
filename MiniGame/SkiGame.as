@@ -227,6 +227,7 @@
 			//stuff when won or lost
 			Main.unpauseGame();
 			Main.panda.resume();
+			Main.panda.visible = true;
 			removeEventListener(Event.ENTER_FRAME, upDate);
 			this.parent.removeChild(this);
 		}

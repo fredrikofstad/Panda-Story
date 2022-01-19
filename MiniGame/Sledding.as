@@ -214,6 +214,7 @@
 			removeEventListener(Event.ENTER_FRAME, update);
 			Main.unpauseGame();
 			Main.panda.resume();
+			Main.panda.visible = true;
 			this.parent.removeChild(this);
 		}
 	}
