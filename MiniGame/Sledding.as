@@ -213,6 +213,7 @@
 		public function removeSelf(): void {
 			removeEventListener(Event.ENTER_FRAME, update);
 			//consider making panda function
+			//test
 			Main.unpauseGame();
 			Main.panda.resume();
 			Main.panda.visible = true;
