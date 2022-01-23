@@ -1,8 +1,6 @@
 ﻿package  {
 	
 	public class Data {
-		
-		import flash.net.SharedObject;
 
 		public function Data() {
 			// constructor code
