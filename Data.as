@@ -8,11 +8,11 @@
 			// constructor code
 		}
 		
-		public static function saveGame(){
+		public static function saveGame(): void{
 			Main.i.saveGame();
 			Progression.flag.saveGame();
 		}
-		public static function loadGame(){
+		public static function loadGame(): void{
 			Main.i.loadGame();
 			Progression.flag.loadGame();
 		}

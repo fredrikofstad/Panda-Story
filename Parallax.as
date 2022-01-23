@@ -13,7 +13,7 @@
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			this.gotoAndStop("night");
 		}
-		function loop(e: Event) {
+		function loop(e: Event): void {
 			this.x = level.getX * 0.2;
 		}
 		function init(e: Event): void {
