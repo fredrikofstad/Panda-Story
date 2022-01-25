@@ -45,6 +45,8 @@
 		}
 		function cabin():void{
 			//doors
+			door2.enter(4);
+			//sleeding game
 			if(!inGame && door3.hitbox.hitTestObject(player.hitbox)){
 				sledGame = new Sledding;
 				addChild(sledGame);
