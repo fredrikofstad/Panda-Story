@@ -5,15 +5,17 @@
 	public class Progression {
 		//set up
 		private var so: SharedObject = SharedObject.getLocal("panda");
-		//LEVEL 1
+		// LEVEL 1
 		public var Frigg:int = 0;
-		//LEVEL 2
+		// LEVEL 2
 		public var ticket: int = 0;
 		public var skateUnlocked: Boolean = false;
 		public var toilclear: Boolean = false;
-		//Level 3
+		// LEVEL 3
 		public var trainDone: Boolean = false;
 		public var asakoForgive: Boolean = false;
+		// LEVEL 4 Winter
+		public var sledScore;
 		
 		
 		
@@ -29,6 +31,7 @@
 			so.data.toilclear = toilclear;
 			so.data.trainDone = trainDone;
 			so.data.asakoForgive = asakoForgive;
+			so.data.sledScore = sledScore;
 			so.data.currentStage = Main.level.getStage;
 		}
 		public function loadGame():void{
@@ -39,6 +42,7 @@
 			trainDone = so.data.trainDone;
 			asakoForgive = so.data.asakoForgive;
 			ticket = so.data.ticket;
+			sledScore = so.data.sledScore;
 		}
 		public static function get flag():Progression {
 			return _flag
