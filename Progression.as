@@ -15,7 +15,7 @@
 		public var trainDone: Boolean = false;
 		public var asakoForgive: Boolean = false;
 		// LEVEL 4 Winter
-		public var sledScore;
+		public var sledScore:int = 0;
 		
 		
 		

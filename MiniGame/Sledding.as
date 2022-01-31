@@ -17,7 +17,6 @@
 		var invicounter: Number = 20;
 		var isInvincible: Boolean = false;
 		var scoreC: Number = 0;
-		var sledScore: Number = 0; //make this in progression
 		var lost: Boolean = true;
 		var start: Boolean = true;
 		//var t: Touch = new Touch;
@@ -42,8 +41,8 @@
 			if (!lost) {
 				sledHP.gotoAndStop(HP);
 			} else {
-				if (sledScore < scoreC) {
-					sledScore = scoreC;
+				if (Progression.flag.sledScore < scoreC) {
+					Progression.flag.sledScore = scoreC;
 				}
 				sledHP.gotoAndStop("lost");
 			}
@@ -113,7 +112,7 @@
 		
 		function updateUI(): void {
 			score.text = String(scoreC);
-			highscore.text = String("highscore"); //get score from save file
+			highscore.text = String(Progression.flag.sledScore); //get score from save file
 			
 			if (lost) {
 				if (start) {
