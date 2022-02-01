@@ -55,7 +55,6 @@
 				sledGame.y = localPoint.y;
 				inGame = true;
 				Main.instance.cutscene(true);
-				//relocate panda
 				Main.panda.x -= 10;
 			}
 		}

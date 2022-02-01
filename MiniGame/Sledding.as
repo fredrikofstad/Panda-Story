@@ -2,7 +2,6 @@
 
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.*;
 	import Objects.Rock;
 
 	public class Sledding extends MovieClip {
@@ -211,9 +210,8 @@
 		}
 		public function removeSelf(): void {
 			removeEventListener(Event.ENTER_FRAME, update);
-			Main.unpauseGame();
 			Main.panda.resume();
-			Main.panda.visible = true;
+			Main.instance.cutscene(false);
 			this.parent.removeChild(this);
 		}
 	}
