@@ -57,6 +57,11 @@
 				Main.instance.cutscene(true);
 				Main.panda.x -= 10;
 			}
+			// characters
+			// buy skis from guy
+
+			// play minigame guy
+
 		}
 
 	}
